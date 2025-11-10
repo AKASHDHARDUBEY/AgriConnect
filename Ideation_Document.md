@@ -85,4 +85,4 @@ This project is licensed under the **MIT License**.
 ---
 
 ### 🏁 Tagline  
-> “Connecting Farms, Markets, and Meals – the Smarter Way.” 🌱
+> “Connecting Farms, Markets, and Meals – the Smarter Way.” 🌱..

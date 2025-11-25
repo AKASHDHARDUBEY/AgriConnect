@@ -1,0 +1,102 @@
+.navbar {
+    background: #2d5016;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-container {
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+.sell-btn {
+    background: #ffc107;
+    color: #333 !important;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sell-btn:hover {
+    background: #ffb300;
+}
+
+/* Mobile */
+.mobile-menu-icon {
+    display: none;
+    font-size: 1.8rem;
+}
+
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.mobile-dropdown {
+    background: #244414;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.mobile-link {
+    color: white;
+    text-decoration: none;
+}
+
+.mobile-sell-btn {
+    background: #ffc107;
+    color: #333;
+    padding: 0.6rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+}

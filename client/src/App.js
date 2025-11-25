@@ -23,6 +23,7 @@ function App() {
         <div className="nav-container">
           <div className="nav-brand">
             <h1>🌾 AgriConnect</h1>
+          
           </div>
         </div>
       </nav>

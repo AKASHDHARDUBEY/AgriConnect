@@ -19,6 +19,7 @@ import AdminLogin from "./pages/AdminLogin";
 
 /* ADMIN PAGES */
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminManageListings from "./pages/AdminManageListings";
 
 /* ADMIN SYSTEM */
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
@@ -96,13 +97,27 @@ export default function App() {
         <Route path="/admin" element={<AdminLogin />} />
 
 
-        /* --------------------------- ADMIN PROTECTED ROUTES ------------------------- */
+        {/* --------------------------- ADMIN PROTECTED ROUTES ------------------------- */}
+
+        {/* Admin Dashboard */}
         <Route
           path="/admin/dashboard"
           element={
             <AdminProtectedRoute>
               <AdminLayout>
                 <AdminDashboard />
+              </AdminLayout>
+            </AdminProtectedRoute>
+          }
+        />
+
+        {/* Admin Manage Listings */}
+        <Route
+          path="/admin/listings"
+          element={
+            <AdminProtectedRoute>
+              <AdminLayout>
+                <AdminManageListings />
               </AdminLayout>
             </AdminProtectedRoute>
           }

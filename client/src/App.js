@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 
-/* GLOBAL COMPONENTS */
+/* USER COMPONENTS */
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 
-/* HOME PAGE COMPONENTS */
+/* USER PAGES */
 import LandingHero from "./components/LandingHero";
 import Marketplace from "./pages/Marketplace";
-
-/* UPLOAD PAGE */
 import UploadPage from "./pages/UploadPage";
 
 /* AUTH PAGES */
@@ -19,14 +17,19 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AdminLogin from "./pages/AdminLogin";
 
-/* ========================= */
-/* MAIN LAYOUT FOR DASHBOARD */
-/* ========================= */
+/* ADMIN PAGES */
+import AdminDashboard from "./pages/AdminDashboard";
+
+/* ADMIN SYSTEM */
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import AdminLayout from "./layouts/AdminLayout";
+
+
+/* --------------------------- USER MAIN LAYOUT --------------------------- */
 function MainLayout({ children, searchTerm, setSearchTerm }) {
   return (
     <div className="app-layout">
       <Sidebar />
-
       <main className="app-main">
         <TopBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <div className="page-area">{children}</div>
@@ -35,9 +38,8 @@ function MainLayout({ children, searchTerm, setSearchTerm }) {
   );
 }
 
-/* ============= */
-/* ROOT APP FILE */
-/* ============= */
+
+/* ------------------------------ ROOT APP -------------------------------- */
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -48,16 +50,20 @@ export default function App() {
 
   return (
     <div className="App">
+
       {/* NAVBAR ALWAYS VISIBLE */}
       <Navbar />
 
       <Routes>
+
+        {/* ---------------------------- USER ROUTES ---------------------------- */}
+
         {/* HOME PAGE */}
         <Route
           path="/"
           element={
-            <MainLayout
-              searchTerm={searchTerm}
+            <MainLayout 
+              searchTerm={searchTerm} 
               setSearchTerm={setSearchTerm}
             >
               <>
@@ -72,7 +78,7 @@ export default function App() {
         <Route
           path="/upload"
           element={
-            <MainLayout
+            <MainLayout 
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             >
@@ -81,20 +87,34 @@ export default function App() {
           }
         />
 
-        {/* ========================= */}
-        {/* AUTH PAGES (NO SIDEBAR)  */}
-        {/* ========================= */}
+
+        {/* ------------------------------ AUTH ROUTES ------------------------------ */}
+        {/* (No Sidebar, No TopBar) */}
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/admin" element={<AdminLogin />} />
 
-        {/* FALLBACK */}
+
+        /* --------------------------- ADMIN PROTECTED ROUTES ------------------------- */
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </AdminProtectedRoute>
+          }
+        />
+
+
+        {/* ------------------------------ FALLBACK ROUTE ------------------------------ */}
         <Route
           path="*"
           element={
-            <MainLayout
-              searchTerm={searchTerm}
+            <MainLayout 
+              searchTerm={searchTerm} 
               setSearchTerm={setSearchTerm}
             >
               <>
@@ -104,12 +124,14 @@ export default function App() {
             </MainLayout>
           }
         />
+
       </Routes>
 
       {/* FOOTER */}
       <footer className="app-footer">
         <p>© 2024 AgriConnect - Connecting Farmers, Buyers & Communities</p>
       </footer>
+
     </div>
   );
 }

@@ -1,0 +1,171 @@
+/* src/pages/AdminDashboard.css */
+
+.admin-dashboard {
+    width: 100%;
+    max-width: 1400px;
+    margin: 1rem auto;
+    padding: 1rem;
+    color: var(--text);
+}
+
+/* Header */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
+.muted {
+    color: var(--muted);
+}
+
+/* Buttons */
+.btn {
+    font-weight: 600;
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--text);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.stat-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.stat-title {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.stat-delta {
+    font-weight: 700;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.stat-delta.positive {
+    color: #064e3b;
+    background: rgba(96, 176, 104, 0.12);
+}
+
+.stat-delta.negative {
+    color: #7f1d1d;
+    background: rgba(224, 63, 63, 0.08);
+}
+
+/* Main Grid: left (activity) and right (table) */
+.admin-main-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1rem;
+}
+
+/* Panels */
+.panel {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+/* Activity List */
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.12s ease;
+}
+
+.activity-item:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Table */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.listings-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.listings-table th,
+.listings-table td {
+    text-align: left;
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--text);
+}
+
+.listings-table thead th {
+    font-weight: 700;
+    color: var(--muted);
+    background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .admin-main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .table-wrapper {
+        min-width: 100%;
+        overflow-x: auto;
+    }
+}

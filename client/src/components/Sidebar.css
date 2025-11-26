@@ -1,25 +1,105 @@
+/* SIDEBAR BASE */
+.sidebar {
+  width: 240px;
+  background: var(--surface);
+  height: 100vh;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  padding: 1rem;
+  overflow-y: auto;
+  box-shadow: var(--card-shadow);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* LOGIN SECTION */
+.sidebar-login {
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-login:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.login-left {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.login-text {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.login-subtext {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 /* AUTH DROPDOWN */
 .auth-dropdown {
   background: var(--surface);
-  border-left: 3px solid var(--accent);
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 6px;
-  box-shadow: var(--card-shadow);
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   animation: fadeIn 0.2s ease;
 }
 
 .auth-item {
   padding: 0.75rem 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   color: var(--text);
-  transition: 0.2s ease;
-  font-size: 0.95rem;
 }
 
 .auth-item:hover {
   background: rgba(0, 0, 0, 0.06);
-  border-radius: 4px;
+}
+
+/* SECTIONS */
+.sidebar-section {
+  margin-top: 2rem;
+}
+
+.sidebar-section-title {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* NAV ITEMS */
+.sidebar-item {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.sidebar-icon {
+  font-size: 1.1rem;
+}
+
+.sidebar-text {
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
 /* Animation */
@@ -32,5 +112,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    box-shadow: none;
   }
 }

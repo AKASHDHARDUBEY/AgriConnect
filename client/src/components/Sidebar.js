@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ currentView, setCurrentView }) => {
+export default function Sidebar() {
   const [openAuthMenu, setOpenAuthMenu] = useState(false);
 
   return (
     <aside className="sidebar">
 
-      {/* Login/Signup Section */}
+      {/* LOGIN / SIGNUP */}
       <div 
         className="sidebar-login"
         onClick={() => setOpenAuthMenu(!openAuthMenu)}
       >
-        <div className="login-icon">👤</div>
-        <div className="login-content">
-          <div className="login-text">Login/Signup</div>
-          <div className="login-subtext">My Account</div>
+        <div className="login-left">
+          <div className="login-icon">👤</div>
+          <div>
+            <div className="login-text">Login / Signup</div>
+            <div className="login-subtext">My Account</div>
+          </div>
         </div>
+
         <div className="login-arrow">{openAuthMenu ? "▲" : "▼"}</div>
       </div>
 
-      {/* DROPDOWN MENU */}
+      {/* DROPDOWN */}
       {openAuthMenu && (
         <div className="auth-dropdown">
           <div 
@@ -46,26 +49,26 @@ const Sidebar = ({ currentView, setCurrentView }) => {
         </div>
       )}
 
-      {/* Main Navigation */}
+      {/* MAIN NAVIGATION */}
       <div className="sidebar-section">
-
         <div 
-          className={`sidebar-item ${currentView === 'listings' ? 'active' : ''}`}
+          className="sidebar-item"
           onClick={() => window.location.href = "/"}
         >
           <span className="sidebar-icon">🏠</span>
           <span className="sidebar-text">Home</span>
         </div>
 
-        <div className="sidebar-item">
-          <span className="sidebar-icon">☰</span>
-          <span className="sidebar-text">Categories</span>
-          <span className="sidebar-arrow">›</span>
+        <div 
+          className="sidebar-item"
+          onClick={() => window.location.href = "/marketplace"}
+        >
+          <span className="sidebar-icon">🌾</span>
+          <span className="sidebar-text">Marketplace</span>
         </div>
-
       </div>
 
-      {/* My Activities */}
+      {/* ACTIVITIES */}
       <div className="sidebar-section">
         <div className="sidebar-section-title">MY ACTIVITIES</div>
 
@@ -74,16 +77,16 @@ const Sidebar = ({ currentView, setCurrentView }) => {
           onClick={() => window.location.href = "/upload"}
         >
           <span className="sidebar-icon">📄</span>
-          <span className="sidebar-text">Ads</span>
+          <span className="sidebar-text">Sell Crop</span>
         </div>
 
         <div className="sidebar-item">
-          <span className="sidebar-icon">📄</span>
-          <span className="sidebar-text">Ads Posted by you</span>
+          <span className="sidebar-icon">📝</span>
+          <span className="sidebar-text">My Listings</span>
         </div>
       </div>
 
-      {/* Others */}
+      {/* OTHERS */}
       <div className="sidebar-section">
         <div className="sidebar-section-title">OTHERS</div>
 
@@ -105,6 +108,4 @@ const Sidebar = ({ currentView, setCurrentView }) => {
 
     </aside>
   );
-};
-
-export default Sidebar;
+}

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Sidebar.css';
+import React, { useState } from "react";
+import "./Sidebar.css";
 
 export default function Sidebar() {
   const [openAuthMenu, setOpenAuthMenu] = useState(false);
@@ -7,8 +7,8 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
 
-      {/* LOGIN / SIGNUP */}
-      <div 
+      {/* ===================== LOGIN / SIGNUP ===================== */}
+      <div
         className="sidebar-login"
         onClick={() => setOpenAuthMenu(!openAuthMenu)}
       >
@@ -23,70 +23,73 @@ export default function Sidebar() {
         <div className="login-arrow">{openAuthMenu ? "▲" : "▼"}</div>
       </div>
 
-      {/* DROPDOWN */}
+      {/* ===== DROPDOWN ===== */}
       {openAuthMenu && (
         <div className="auth-dropdown">
-          <div 
+          <div
             className="auth-item"
-            onClick={() => window.location.href = "/login"}
+            onClick={() => (window.location.href = "/login")}
           >
             User Login
           </div>
 
-          <div 
+          <div
             className="auth-item"
-            onClick={() => window.location.href = "/signup"}
+            onClick={() => (window.location.href = "/signup")}
           >
             Signup
           </div>
 
-          <div 
+          <div
             className="auth-item"
-            onClick={() => window.location.href = "/admin"}
+            onClick={() => (window.location.href = "/admin")}
           >
             Admin Login
           </div>
         </div>
       )}
 
-      {/* MAIN NAVIGATION */}
+      {/* ===================== MAIN SECTION ===================== */}
       <div className="sidebar-section">
-        <div 
+        <div
           className="sidebar-item"
-          onClick={() => window.location.href = "/"}
+          onClick={() => (window.location.href = "/")}
         >
           <span className="sidebar-icon">🏠</span>
           <span className="sidebar-text">Home</span>
         </div>
 
-        <div 
+        <div
           className="sidebar-item"
-          onClick={() => window.location.href = "/marketplace"}
+          onClick={() => (window.location.href = "/marketplace")}
         >
           <span className="sidebar-icon">🌾</span>
           <span className="sidebar-text">Marketplace</span>
         </div>
       </div>
 
-      {/* ACTIVITIES */}
+      {/* ===================== MY ACTIVITIES ===================== */}
       <div className="sidebar-section">
         <div className="sidebar-section-title">MY ACTIVITIES</div>
 
-        <div 
+        <div
           className="sidebar-item"
-          onClick={() => window.location.href = "/upload"}
+          onClick={() => (window.location.href = "/upload")}
         >
           <span className="sidebar-icon">📄</span>
           <span className="sidebar-text">Sell Crop</span>
         </div>
 
-        <div className="sidebar-item">
+        <div
+          className="sidebar-item"
+          onClick={() => (window.location.href = "/myads")}
+        >
           <span className="sidebar-icon">📝</span>
-          <span className="sidebar-text">My Listings</span>
+          <span className="sidebar-text">My Ads</span>
         </div>
       </div>
 
-      {/* OTHERS */}
+      {/* ===================== OTHER LINKS ===================== */}
       <div className="sidebar-section">
         <div className="sidebar-section-title">OTHERS</div>
 
@@ -105,7 +108,6 @@ export default function Sidebar() {
           <span className="sidebar-text">Contact Us</span>
         </div>
       </div>
-
     </aside>
   );
 }

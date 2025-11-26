@@ -1,132 +1,36 @@
-.sidebar {
-  width: 240px;
-  background: white;
-  min-height: calc(100vh - 60px);
-  border-right: 1px solid #e0e0e0;
-  position: fixed;
-  left: 0;
-  top: 60px;
-  overflow-y: auto;
-  z-index: 90;
+/* AUTH DROPDOWN */
+.auth-dropdown {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+  animation: fadeIn 0.2s ease;
 }
 
-/* Login/Signup Section */
-.sidebar-login {
-  background: #e3f2fd;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.auth-item {
+  padding: 0.75rem 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.sidebar-login:hover {
-  background: #bbdefb;
-}
-
-.login-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 50%;
-}
-
-.login-content {
-  flex: 1;
-}
-
-.login-text {
-  font-weight: 600;
-  color: #1976d2;
+  color: var(--text);
+  transition: 0.2s ease;
   font-size: 0.95rem;
 }
 
-.login-subtext {
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 0.25rem;
+.auth-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
 }
 
-.login-arrow {
-  color: #1976d2;
-  font-size: 1.25rem;
-  font-weight: 300;
-}
-
-/* Sidebar Sections */
-.sidebar-section {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.sidebar-section-title {
-  padding: 0.75rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  gap: 0.75rem;
-  color: #333;
-}
-
-.sidebar-item:hover {
-  background: #f5f5f5;
-}
-
-.sidebar-item.active {
-  background: #e8f5e9;
-  border-left: 3px solid #4caf50;
-  font-weight: 600;
-  color: #2d5016;
-}
-
-.sidebar-icon {
-  font-size: 1.25rem;
-  width: 24px;
-  text-align: center;
-}
-
-.sidebar-text {
-  flex: 1;
-  font-size: 0.9rem;
-}
-
-.sidebar-arrow {
-  color: #999;
-  font-size: 1.25rem;
-  font-weight: 300;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-  }
-}
-
-@media (max-width: 640px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 
-  .sidebar.open {
-    transform: translateX(0);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-

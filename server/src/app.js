@@ -21,7 +21,14 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Implement CORS
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'https://agri-connect-smart-agriculture-food-distribution-ofxo0c7dw.vercel.app',
+        process.env.CLIENT_URL // Allow setting via env var
+    ],
+    credentials: true
+}));
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
@@ -30,12 +37,17 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // Serving static files
 app.use(express.static('public'));
 
+// Trust proxy (required for Render/Heroku to pass secure cookies)
+app.set('trust proxy', 1);
+
 // Cookie session
 app.use(
     cookieSession({
         name: 'session',
         keys: [process.env.COOKIE_KEY || 'secret_key_1', process.env.COOKIE_KEY_2 || 'secret_key_2'],
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        secure: process.env.NODE_ENV === 'production', // Secure in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' // None for cross-site
     })
 );
 

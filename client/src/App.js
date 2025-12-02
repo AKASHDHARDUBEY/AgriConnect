@@ -160,7 +160,7 @@ export default function App() {
       </Routes>
 
 
-      {/* FOOTER */}
+      {/* FOOTER of the website */}
       <footer className="app-footer">
         <p>© 2024 AgriConnect - Connecting Farmers, Buyers & Communities</p>
       </footer>

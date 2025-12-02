@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './CropUploadForm.css';
 
 const CropUploadForm = ({ onCropAdded }) => {
@@ -31,7 +32,7 @@ const CropUploadForm = ({ onCropAdded }) => {
         alert('Please select an image file');
         return;
       }
-      
+
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('Image size should be less than 5MB');
@@ -52,7 +53,7 @@ const CropUploadForm = ({ onCropAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.image) {
       alert('Please upload a crop image');
       return;
@@ -60,44 +61,47 @@ const CropUploadForm = ({ onCropAdded }) => {
 
     setIsSubmitting(true);
 
-    // Create a new crop listing object
-    const newCrop = {
-      id: Date.now(),
-      cropName: formData.cropName,
-      price: formData.price,
-      quantity: formData.quantity,
-      description: formData.description,
-      location: formData.location,
-      contact: formData.contact,
-      image: formData.imagePreview, // In real app, upload to server and get URL
-      datePosted: new Date().toLocaleDateString()
-    };
+    try {
+      const data = new FormData();
+      data.append('name', formData.cropName);
+      data.append('price', formData.price);
+      data.append('quantity', formData.quantity);
+      data.append('unit', 'kg'); // Default unit for now
+      data.append('description', formData.description);
+      // Location is not in DB schema yet, so we skip it or add it to description
+      data.append('image', formData.image);
 
-    // Save to localStorage (in real app, this would be an API call)
-    const existingCrops = JSON.parse(localStorage.getItem('cropListings') || '[]');
-    existingCrops.push(newCrop);
-    localStorage.setItem('cropListings', JSON.stringify(existingCrops));
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
-    // Reset form
-    setFormData({
-      cropName: '',
-      price: '',
-      quantity: '',
-      description: '',
-      location: '',
-      contact: '',
-      image: null,
-      imagePreview: null
-    });
+      // We need to send credentials (cookies) for authentication
+      const response = await axios.post(`${apiUrl}/api/v1/products`, data, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
-    setIsSubmitting(false);
-    
-    // Notify parent component
-    if (onCropAdded) {
-      onCropAdded();
+      if (response.data.status === 'success') {
+        alert('Crop listing added successfully!');
+        // Reset form
+        setFormData({
+          cropName: '',
+          price: '',
+          quantity: '',
+          description: '',
+          location: '',
+          contact: '',
+          image: null,
+          imagePreview: null
+        });
+        if (onCropAdded) onCropAdded();
+      }
+    } catch (err) {
+      console.error('Upload Error:', err);
+      alert(err.response?.data?.message || 'Failed to upload crop. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    alert('Crop listing added successfully!');
   };
 
   const removeImage = () => {
@@ -113,7 +117,7 @@ const CropUploadForm = ({ onCropAdded }) => {
       <div className="crop-upload-card">
         <h2 className="upload-title">📤 List Your Crop</h2>
         <p className="upload-subtitle">Sell directly to buyers and get fair prices</p>
-        
+
         <form onSubmit={handleSubmit} className="crop-upload-form">
           {/* Image Upload Section */}
           <div className="form-section">
@@ -123,13 +127,13 @@ const CropUploadForm = ({ onCropAdded }) => {
             <div className="image-upload-area">
               {formData.imagePreview ? (
                 <div className="image-preview-container">
-                  <img 
-                    src={formData.imagePreview} 
-                    alt="Crop preview" 
+                  <img
+                    src={formData.imagePreview}
+                    alt="Crop preview"
                     className="image-preview"
                   />
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={removeImage}
                     className="remove-image-btn"
                   >
@@ -252,8 +256,8 @@ const CropUploadForm = ({ onCropAdded }) => {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="submit-btn"
             disabled={isSubmitting}
           >

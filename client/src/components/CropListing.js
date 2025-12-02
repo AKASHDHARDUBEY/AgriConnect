@@ -1,5 +1,6 @@
 // src/components/CropListing.js
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./CropListing.css";
 
 import CropCard from "./CropCard";
@@ -11,24 +12,43 @@ export default function CropListing({ searchTerm = "" }) {
   const [filterLocation, setFilterLocation] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Load from localStorage
-  const loadCrops = () => {
-    const saved = JSON.parse(localStorage.getItem("cropListings") || "[]");
-    setCrops(saved);
+  // Load from API
+  const loadCrops = async () => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const response = await axios.get(`${apiUrl}/api/v1/products`);
+
+      if (response.data.status === 'success') {
+        const mappedCrops = response.data.data.products.map(p => ({
+          id: p.id,
+          cropName: p.name,
+          price: p.price,
+          quantity: `${p.quantity} ${p.unit}`,
+          description: p.description,
+          location: "India", // Placeholder as DB doesn't have location yet
+          seller: p.farmer?.name || "Farmer",
+          image: p.imageUrl,
+          contact: p.farmer?.email // Using email as contact for now
+        }));
+        setCrops(mappedCrops);
+      }
+    } catch (err) {
+      console.error("Failed to fetch crops:", err);
+      // Fallback to local storage if API fails (optional)
+      const saved = JSON.parse(localStorage.getItem("cropListings") || "[]");
+      if (saved.length > 0) setCrops(saved);
+    }
   };
 
-  // Initial load + skeleton delay
+  // Initial load
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      loadCrops();
-      setLoading(false);
-    }, 800); // skeleton shimmer duration
+    loadCrops().finally(() => setLoading(false));
   }, []);
 
-  // Live sync if user updates localStorage
+  // Poll for updates (optional, every 30s)
   useEffect(() => {
-    const listener = setInterval(loadCrops, 1000);
+    const listener = setInterval(loadCrops, 30000);
     return () => clearInterval(listener);
   }, []);
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthCard from "../components/AuthCard";
 import "./AuthPages.css";
@@ -9,9 +10,23 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    console.log("New User:", { name, email, password });
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      const response = await axios.post(`${apiUrl}/auth/signup`, {
+        name,
+        email,
+        password
+      }, { withCredentials: true });
+
+      if (response.data.status === 'success') {
+        alert('Account created successfully!');
+        navigate('/'); // Redirect to home/dashboard
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || 'Signup failed. Please try again.');
+    }
   };
 
   return (

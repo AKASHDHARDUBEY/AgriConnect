@@ -87,6 +87,15 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/api/v1/debug/session', (req, res) => {
+    res.json({
+        session: req.session,
+        user: req.user,
+        isAuthenticated: req.isAuthenticated(),
+        cookies: req.headers.cookie
+    });
+});
+
 // 3) ERROR HANDLING
 app.use((req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

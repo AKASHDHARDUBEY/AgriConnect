@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1rem;
 }
 
 /* HEADER */
@@ -12,15 +12,14 @@
 }
 
 .listing-title {
-  font-size: 1.75rem;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
 }
 
 .listing-subtitle {
+  font-size: 1rem;
   color: var(--muted);
-  font-size: 0.95rem;
 }
 
 /* FILTER BAR */
@@ -33,181 +32,74 @@
 
 .filter-box {
   flex: 1;
-  min-width: 250px;
-  max-width: 300px;
+  min-width: 260px;
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .filter-icon {
   position: absolute;
-  left: 1rem;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--muted);
 }
 
 .filter-input {
   width: 100%;
-  padding: 0.875rem 1rem 0.875rem 3rem;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  font-size: 1rem;
+  padding: 0.85rem 1rem 0.85rem 3rem;
+  border-radius: 12px;
   background: var(--surface);
+  border: 2px solid rgba(0, 0, 0, 0.12);
   color: var(--text);
-  transition: 0.3s ease;
+  transition: 0.25s ease;
 }
 
 .filter-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
-  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.18);
 }
 
-/* GRID (FIXED) */
+/* RESULTS INFO */
+.results-info {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+/* GRID */
 .crop-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  width: 100%;
 }
 
-/* CARD */
-.crop-card {
-  background: var(--surface);
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.crop-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* IMAGE */
-.crop-image-container {
-  width: 100%;
-  height: 220px;
-  background: var(--bg);
-  overflow: hidden;
-  position: relative;
-}
-
-.crop-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.3s ease;
-}
-
-.crop-card:hover .crop-image {
-  transform: scale(1.05);
-}
-
-/* BADGE */
-.crop-badge {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: var(--accent);
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-/* CONTENT */
-.crop-card-content {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: 0.5rem;
-}
-
-.crop-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.crop-location,
-.crop-quantity {
-  color: var(--muted);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.crop-description {
-  color: var(--text);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  line-height: 1.5;
-  flex-grow: 1;
-}
-
-/* FOOTER */
-.crop-footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.price-amount {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.price-unit {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.contact-btn {
-  background: var(--accent);
-  color: white;
-  padding: 0.625rem 1.25rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.contact-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.35);
+/* SKELETON + CARD WILL CHANGE TRANSFORM SMOOTHLY */
+.crop-card,
+.skeleton-card {
+  will-change: transform, opacity;
 }
 
 /* EMPTY STATE */
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
-  color: var(--muted);
-}
-
-.empty-icon {
-  margin-bottom: 1rem;
 }
 
 .empty-state h3 {
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
-/* RESPONSIVE FIXES */
+.empty-state p {
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .crop-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+  }
+
+  .listing-title {
+    font-size: 1.7rem;
   }
 }

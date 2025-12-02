@@ -1,104 +1,162 @@
-/* Landing Hero Section */
+/* SECTION */
 .hero-section {
     width: 100%;
-    background: var(--nav-gradient);
-    padding: 4rem 1.5rem;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
 }
 
+/* BACKGROUND GRADIENT CIRCLES */
+.hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    z-index: 0;
+}
+
+.circle1 {
+    width: 450px;
+    height: 450px;
+    background: #98d798;
+    top: -120px;
+    left: -150px;
+}
+
+.circle2 {
+    width: 400px;
+    height: 400px;
+    background: #41b15c;
+    bottom: -100px;
+    right: -100px;
+}
+
+/* LAYOUT CONTAINER */
 .hero-container {
-    max-width: 1300px;
+    max-width: 1400px;
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 3rem;
-    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
 }
 
-/* TEXT */
+/* TEXT BLOCK */
 .hero-content {
     flex: 1;
-    min-width: 280px;
 }
 
 .hero-title {
     font-size: 3rem;
     font-weight: 800;
+    color: var(--text);
     line-height: 1.2;
 }
 
 .hero-title span {
-    color: #ffeb3b;
+    color: var(--accent);
 }
 
 .hero-subtitle {
-    margin: 1rem 0 2rem;
+    margin-top: 1rem;
     font-size: 1.2rem;
-    max-width: 550px;
-    opacity: 0.9;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.6;
 }
 
-/* BUTTON GROUP */
+/* BUTTONS */
 .hero-buttons {
+    margin-top: 2rem;
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .hero-btn-primary {
-    background: #ffeb3b;
-    border: none;
-    color: #2d2d2d;
-    padding: 0.8rem 1.4rem;
-    font-size: 1rem;
-    font-weight: bold;
+    background: var(--accent);
+    padding: 0.9rem 1.8rem;
+    color: white;
     border-radius: 12px;
+    border: none;
     cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.25);
     transition: 0.25s ease;
 }
 
 .hero-btn-primary:hover {
-    background: #ffe000;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(76, 175, 80, 0.35);
 }
 
 .hero-btn-secondary {
-    background: white;
-    border: none;
-    color: #2d5016;
-    padding: 0.8rem 1.4rem;
-    font-size: 1rem;
-    font-weight: bold;
+    background: transparent;
+    padding: 0.9rem 1.8rem;
+    color: var(--accent);
+    border: 2px solid var(--accent);
     border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.25s ease;
 }
 
 .hero-btn-secondary:hover {
-    background: #e2e2e2;
+    background: var(--accent);
+    color: white;
 }
 
-/* HERO IMAGE */
+/* IMAGE */
+.hero-image {
+    flex: 1;
+    position: relative;
+    text-align: center;
+}
+
 .hero-image img {
-    width: 300px;
-    max-width: 100%;
-    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
+    width: 330px;
+    filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.25));
+}
+
+/* FLOATING GLASS CARD — FIXED TEXT VISIBILITY */
+.floating-glass-card {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.6rem;
+    background: var(--surface-translucent);
+    backdrop-filter: blur(12px);
+    color: var(--text);
+    /* FIX: dynamic visibility */
+    font-weight: 600;
     border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.20);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: inline-block;
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .hero-section {
-        text-align: center;
-        padding-top: 3rem;
-    }
-
+@media (max-width: 900px) {
     .hero-container {
         flex-direction: column;
+        text-align: center;
     }
 
     .hero-buttons {
         justify-content: center;
+        flex-direction: column;
     }
+
+    .hero-image img {
+        width: 260px;
+    }
+}
+:root {
+    --surface-translucent: rgba(255, 255, 255, 0.45);
+}
+
+html.dark {
+    --surface-translucent: rgba(30, 30, 30, 0.45);
 }

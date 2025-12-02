@@ -1,0 +1,164 @@
+/* ===================== CARD WRAPPER ===================== */
+.crop-card {
+    background: var(--surface);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* hover effect handled by framer-motion, but keep fallback */
+.crop-card:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ===================== IMAGE WRAPPER ===================== */
+.crop-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 210px;
+    background: #f5f5f5;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.crop-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* fallback zoom if js hover fails */
+.crop-card:hover .crop-img {
+    transform: scale(1.06);
+}
+
+/* ===================== IMAGE PLACEHOLDER ===================== */
+.crop-img-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--muted);
+    font-size: 1rem;
+    background: #eee;
+}
+
+/* ===================== TAG BADGE ===================== */
+.crop-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--text);
+    padding: 0.35rem 0.7rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    transition: 0.3s ease;
+}
+
+/* ===================== CARD CONTENT ===================== */
+.crop-info {
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+/* ===================== HEADER ROW ===================== */
+.crop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.crop-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+/* ===================== PRICE ===================== */
+.crop-price {
+    text-align: right;
+}
+
+.price {
+    color: var(--accent);
+    font-weight: 900;
+    font-size: 1.45rem;
+}
+
+.unit {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ===================== DESCRIPTION ===================== */
+.crop-desc {
+    color: var(--text);
+    opacity: 0.9;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+/* ===================== EXTRA INFO ROW ===================== */
+.crop-extra {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* ===================== CONTACT BUTTON ===================== */
+.contact-btn {
+    margin-top: 0.65rem;
+    padding: 0.7rem 1rem;
+    background: linear-gradient(135deg, var(--accent), #2f8f41);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+}
+
+/* ===================== DATE ===================== */
+.crop-date {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ===================== DARK MODE SUPPORT ===================== */
+html.dark .crop-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html.dark .crop-tag {
+    background: rgba(20, 20, 20, 0.45);
+    color: var(--text);
+}
+
+html.dark .crop-img-placeholder {
+    background: #222;
+    color: #aaa;
+}

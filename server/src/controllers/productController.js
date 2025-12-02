@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'agriconnect-products',
-        allowed_formats: ['jpg', 'png', 'jpeg']
+        allowedFormats: ['jpg', 'png', 'jpeg']
     }
 });
 
@@ -47,8 +47,16 @@ exports.createProduct = async (req, res, next) => {
         // req.user is guaranteed to exist due to protect middleware
         // req.user.role is guaranteed to be FARMER due to restrictTo middleware
 
+        console.log('Request Body:', req.body);
+        console.log('Request File:', req.file);
+
         const { name, description, price, quantity, unit } = req.body;
-        const imageUrl = req.file ? req.file.path : null;
+
+        if (!req.file) {
+            return next(new AppError('Image upload failed. Please try again.', 400));
+        }
+
+        const imageUrl = req.file.path;
 
         const newProduct = await prisma.product.create({
             data: {

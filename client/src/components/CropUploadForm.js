@@ -72,6 +72,7 @@ const CropUploadForm = ({ onCropAdded }) => {
       data.append('image', formData.image);
 
       const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+      alert(`Debug: Sending to ${apiUrl}`); // Temporary debug
 
       // We need to send credentials (cookies) for authentication
       const response = await axios.post(`${apiUrl}/api/v1/products`, data, {

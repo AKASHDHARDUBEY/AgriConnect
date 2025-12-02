@@ -14,7 +14,7 @@ import UploadPage from "./pages/UploadPage";
 import MyAdsPage from "./pages/MyAdsPage";
 
 /* AUTH PAGES */
-import LoginPage from "./pages/LoginPage";
+import Login from "./components/Login";
 import SignupPage from "./pages/SignupPage";
 import AdminLogin from "./pages/AdminLogin";
 
@@ -84,7 +84,7 @@ export default function App() {
         <Route
           path="/upload"
           element={
-            <MainLayout 
+            <MainLayout
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             >
@@ -109,7 +109,7 @@ export default function App() {
 
         {/* ================= AUTH ROUTES (NO SIDEBAR) ================= */}
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/admin" element={<AdminLogin />} />
 

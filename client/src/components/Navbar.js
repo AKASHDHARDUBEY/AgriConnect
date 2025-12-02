@@ -53,11 +53,12 @@ export default function Navbar() {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/marketplace" className="nav-link">Marketplace</Link>
           <Link to="/farm" className="nav-link">Farmer Dashboard</Link>
+          <Link to="/login" className="nav-link">Login</Link>
 
           <Link to="/upload" className="sell-btn">+ Sell Crop</Link>
 
           {/* DARK MODE TOGGLE */}
-          <button 
+          <button
             className="theme-toggle"
             onClick={toggleTheme}
             aria-label="Toggle dark mode"
@@ -85,7 +86,7 @@ export default function Navbar() {
           <Link to="/upload" onClick={() => setMenuOpen(false)} className="mobile-sell-btn">+ Sell Crop</Link>
 
           {/* Mobile Dark mode toggle */}
-          <button 
+          <button
             className="mobile-theme-toggle"
             onClick={() => { toggleTheme(); setMenuOpen(false); }}
           >

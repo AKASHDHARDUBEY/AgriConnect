@@ -1,12 +1,12 @@
-# 🌾 AgriConnect - Smart Agriculture & Food Distribution Platform
+# AgriConnect - Smart Agriculture & Food Distribution Platform
 
-### 👥 Team: FoodChainX
+###  Team: FoodChainX
 
 AgriConnect is a full-stack platform that connects farmers, buyers, and citizens through technology. It uses GPS, satellite, and market data to guide farmers on **what to grow, when to grow, and how to grow**, enables **direct produce selling**, and links **citizens to public food distribution systems (PDS)**.
 
 ---
 
-## 🚀 Live Deployment
+##  Live Deployment
 
 | Component | Service | URL |
 |-----------|---------|-----|
@@ -17,26 +17,26 @@ AgriConnect is a full-stack platform that connects farmers, buyers, and citizens
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 🌱 For Farmers
+###  For Farmers
 - **Direct Selling**: Upload crops with images, prices, and quantities.
 - **Dashboard**: Manage listings and view market trends.
 - **AI Recommendations**: (Planned) GPS-based crop suggestions.
 
-### 🔐 Authentication & Security
+###  Authentication & Security
 - **Google OAuth**: One-click login with Google.
 - **Email/Password**: Secure signup and login with hashed passwords (Bcrypt).
 - **Role-Based Access**: Farmers, Buyers, and Admins.
 - **Secure Sessions**: HttpOnly cookies with cross-site support.
 
-### 🛒 For Buyers
+###  For Buyers
 - **Marketplace**: Browse fresh produce directly from farmers.
 - **Contact**: Connect directly with sellers.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend:** React.js, CSS3, Axios
 - **Backend:** Node.js, Express.js
@@ -131,7 +131,7 @@ npm start
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 AgriConnect/
@@ -158,7 +158,7 @@ AgriConnect/
 
 ---
 
-## 📜 License
+##  License
 
 This project is licensed under the MIT License.
 
@@ -173,6 +173,6 @@ This project is licensed under the MIT License.
 | **Aditya Phalke** | aditya.phalke@adypu.edu.in | Database & API Integration |
 | **Yash Mali** | yash.mali@adypu.edu.in | UI/UX Designer & Documentation |
 
-### 🏆 Hackathon Details
+###  Hackathon Details
 **Theme:** Smart Agriculture & Food Security
 **Event:** Sustainable Tech Innovation 2025

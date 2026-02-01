@@ -8,6 +8,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
+import Footer from "./components/Footer";
 
 /* USER PAGES */
 import Home from "./pages/Home";
@@ -166,11 +167,10 @@ export default function App() {
 
 
           {/* FOOTER of the website */}
-          <footer className="app-footer">
-            <p>© 2024 AgriConnect - Connecting Farmers, Buyers & Communities</p>
-          </footer>
+          <Footer />
 
         </div>
       </UserProvider>
-      );
+    </HelmetProvider>
+  );
 }

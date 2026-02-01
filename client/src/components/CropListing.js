@@ -1,15 +1,14 @@
 // src/components/CropListing.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./CropListing.css";
-
+import "./CropListing.css"; // You can keep this for specific overrides or remove if fully Tailwind
 import CropCard from "./CropCard";
 import CropCardSkeleton from "./CropCardSkeleton";
 import { motion } from "framer-motion";
+import { generateCollectionSchema } from "../seo/marketplaceSchema";
 
-export default function CropListing({ searchTerm = "" }) {
+export default function CropListing({ searchTerm = "", category, sort, location, isPreview }) {
   const [crops, setCrops] = useState([]);
-  const [filterLocation, setFilterLocation] = useState("");
   const [loading, setLoading] = useState(true);
 
   // Load from API
@@ -25,31 +24,24 @@ export default function CropListing({ searchTerm = "" }) {
           price: p.price,
           quantity: `${p.quantity} ${p.unit}`,
           description: p.description,
-          location: "India", // Placeholder as DB doesn't have location yet
+          location: "India",
           seller: p.farmer?.name || "Farmer",
           image: p.imageUrl,
-          contact: p.farmer?.email // Using email as contact for now
+          contact: p.farmer?.email
         }));
         setCrops(mappedCrops);
       }
     } catch (err) {
       console.error("Failed to fetch crops:", err);
-      // Fallback to local storage if API fails (optional)
+      // Fallback 
       const saved = JSON.parse(localStorage.getItem("cropListings") || "[]");
       if (saved.length > 0) setCrops(saved);
     }
   };
 
-  // Initial load
   useEffect(() => {
     setLoading(true);
     loadCrops().finally(() => setLoading(false));
-  }, []);
-
-  // Poll for updates (optional, every 30s)
-  useEffect(() => {
-    const listener = setInterval(loadCrops, 30000);
-    return () => clearInterval(listener);
   }, []);
 
   // FILTERS
@@ -58,81 +50,55 @@ export default function CropListing({ searchTerm = "" }) {
       crop.cropName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       crop.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesLocation =
-      !filterLocation ||
-      crop.location.toLowerCase().includes(filterLocation.toLowerCase());
+    // Simple mock logic for other filters since DB might not have them yet
+    const matchesCategory = category === "All Categories" || true;
+    const matchesLocation = location === "All India" || true;
 
-    return matchesSearch && matchesLocation;
+    return matchesSearch && matchesCategory && matchesLocation;
   });
 
+  // SCHEMA
+  const collectionSchema = generateCollectionSchema(filteredCrops.map(c => ({ item: c })));
+
   return (
-    <div className="crop-listing-container">
-      {/* Header */}
-      <div className="listing-header">
-        <h1 className="listing-title">🌾 Browse Crop Listings</h1>
-        <p className="listing-subtitle">Buy directly from farmers at fair prices</p>
-      </div>
+    <div className="w-full">
+      {!loading && !isPreview && (
+        <script type="application/ld+json">
+          {JSON.stringify(collectionSchema)}
+        </script>
+      )}
 
-      {/* Location Filter */}
-      <div className="search-filter-bar">
-        <div className="filter-box">
-          <svg
-            className="filter-icon"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-          </svg>
-
-          <input
-            type="text"
-            placeholder="Filter by location..."
-            value={filterLocation}
-            onChange={(e) => setFilterLocation(e.target.value)}
-            className="filter-input"
-          />
+      {/* RESULTS HEADER */}
+      {!isPreview && (
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-xl font-bold text-slate-800 dark:text-white">
+            {loading ? "Searching..." : `Viewing ${filteredCrops.length} Listings`}
+          </h3>
         </div>
-      </div>
-
-      {/* Results Info */}
-      <div className="results-info">
-        {loading ? (
-          <p>Loading listings...</p>
-        ) : filteredCrops.length > 0 ? (
-          <p>
-            Found {filteredCrops.length}{" "}
-            {filteredCrops.length === 1 ? "listing" : "listings"}
-          </p>
-        ) : (
-          <p>No listings found. Try changing filters.</p>
-        )}
-      </div>
+      )}
 
       {/* GRID */}
       {loading ? (
-        <div className="crop-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[...Array(6)].map((_, i) => (
             <CropCardSkeleton key={i} />
           ))}
         </div>
       ) : filteredCrops.length > 0 ? (
         <motion.div
-          className="crop-grid"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           initial="hidden"
           animate="visible"
           transition={{ staggerChildren: 0.08 }}
         >
-          {filteredCrops.map((crop, index) => (
+          {filteredCrops.slice(0, isPreview ? 3 : undefined).map((crop, index) => (
             <CropCard key={index} item={crop} />
           ))}
         </motion.div>
       ) : (
-        <div className="empty-state">
-          <h3>No crops listed yet</h3>
-          <p>Start by listing your first crop!</p>
+        <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No listings found</h3>
+          <p className="text-slate-500">Try adjusting your filters or search term.</p>
         </div>
       )}
     </div>

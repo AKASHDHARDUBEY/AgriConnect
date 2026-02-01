@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
 
 /* USER COMPONENTS */
@@ -9,6 +10,7 @@ import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 
 /* USER PAGES */
+import Home from "./pages/Home";
 import LandingHero from "./components/LandingHero";
 import Marketplace from "./pages/Marketplace";
 import UploadPage from "./pages/UploadPage";
@@ -56,118 +58,119 @@ export default function App() {
   };
 
   return (
-    <UserProvider>
-      <div className="App">
+    <HelmetProvider>
+      <UserProvider>
+        <div className="App">
 
-        {/* NAVBAR ALWAYS VISIBLE */}
-        <Navbar />
+          {/* NAVBAR ALWAYS VISIBLE */}
+          <Navbar />
 
-        <Routes>
-          {/* ... routes ... */}
-          {/* ================= USER ROUTES ================= */}
+          <Routes>
+            {/* ... routes ... */}
+            {/* ================= USER ROUTES ================= */}
 
-          {/* HOME */}
-          <Route
-            path="/"
-            element={
-              <MainLayout
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              >
-                <>
-                  <LandingHero />
-                  <Marketplace searchTerm={searchTerm} />
-                </>
-              </MainLayout>
-            }
-          />
+            {/* HOME */}
+            <Route
+              path="/"
+              element={
+                <MainLayout
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                >
+                  <>
+                    <LandingHero />
+                    <Marketplace searchTerm={searchTerm} />
+                  </>
+                </MainLayout>
+              }
+            />
 
-          {/* UPLOAD PAGE */}
-          <Route
-            path="/upload"
-            element={
-              <MainLayout
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              >
-                <UploadPage onCropAdded={handleCropAdded} />
-              </MainLayout>
-            }
-          />
+            {/* UPLOAD PAGE */}
+            <Route
+              path="/upload"
+              element={
+                <MainLayout
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                >
+                  <UploadPage onCropAdded={handleCropAdded} />
+                </MainLayout>
+              }
+            />
 
-          {/* MY ADS PAGE */}
-          <Route
-            path="/myads"
-            element={
-              <MainLayout
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              >
-                <MyAdsPage />
-              </MainLayout>
-            }
-          />
-
-
-          {/* ================= AUTH ROUTES (NO SIDEBAR) ================= */}
-
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/admin" element={<AdminLogin />} />
+            {/* MY ADS PAGE */}
+            <Route
+              path="/myads"
+              element={
+                <MainLayout
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                >
+                  <MyAdsPage />
+                </MainLayout>
+              }
+            />
 
 
-          {/* ================= ADMIN PROTECTED ROUTES ================= */}
+            {/* ================= AUTH ROUTES (NO SIDEBAR) ================= */}
 
-          {/* Admin Dashboard */}
-          <Route
-            path="/admin/dashboard"
-            element={
-              <AdminProtectedRoute>
-                <AdminLayout>
-                  <AdminDashboard />
-                </AdminLayout>
-              </AdminProtectedRoute>
-            }
-          />
-
-          {/* Admin Manage Listings */}
-          <Route
-            path="/admin/listings"
-            element={
-              <AdminProtectedRoute>
-                <AdminLayout>
-                  <AdminManageListings />
-                </AdminLayout>
-              </AdminProtectedRoute>
-            }
-          />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/admin" element={<AdminLogin />} />
 
 
-          {/* ================= FALLBACK ROUTE ================= */}
-          <Route
-            path="*"
-            element={
-              <MainLayout
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              >
-                <>
-                  <LandingHero />
-                  <Marketplace searchTerm={searchTerm} />
-                </>
-              </MainLayout>
-            }
-          />
+            {/* ================= ADMIN PROTECTED ROUTES ================= */}
 
-        </Routes>
+            {/* Admin Dashboard */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <AdminProtectedRoute>
+                  <AdminLayout>
+                    <AdminDashboard />
+                  </AdminLayout>
+                </AdminProtectedRoute>
+              }
+            />
+
+            {/* Admin Manage Listings */}
+            <Route
+              path="/admin/listings"
+              element={
+                <AdminProtectedRoute>
+                  <AdminLayout>
+                    <AdminManageListings />
+                  </AdminLayout>
+                </AdminProtectedRoute>
+              }
+            />
 
 
-        {/* FOOTER of the website */}
-        <footer className="app-footer">
-          <p>© 2024 AgriConnect - Connecting Farmers, Buyers & Communities</p>
-        </footer>
+            {/* ================= FALLBACK ROUTE ================= */}
+            <Route
+              path="*"
+              element={
+                <MainLayout
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                >
+                  <>
+                    <LandingHero />
+                    <Marketplace searchTerm={searchTerm} />
+                  </>
+                </MainLayout>
+              }
+            />
 
-      </div>
-    </UserProvider>
-  );
+          </Routes>
+
+
+          {/* FOOTER of the website */}
+          <footer className="app-footer">
+            <p>© 2024 AgriConnect - Connecting Farmers, Buyers & Communities</p>
+          </footer>
+
+        </div>
+      </UserProvider>
+      );
 }

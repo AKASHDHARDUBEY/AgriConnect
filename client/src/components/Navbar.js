@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import {
+  SunIcon,
+  MoonIcon,
+  Bars3Icon,
+  XMarkIcon,
+  UserCircleIcon
+} from "@heroicons/react/24/outline";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -45,7 +52,12 @@ export default function Navbar() {
           className="navbar-logo"
           onClick={() => navigate("/")}
         >
-          <span className="logo-icon">🌾</span>
+          {/* Logo Icon using an SVG or Image if preferred, or just styled text */}
+          <div className="logo-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="logo-icon-svg">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+          </div>
           <span className="logo-text">AgriConnect</span>
         </div>
 
@@ -55,20 +67,9 @@ export default function Navbar() {
           <Link to="/marketplace" className="nav-link">Marketplace</Link>
           <Link to="/farm" className="nav-link">Farmer Dashboard</Link>
           {user ? (
-            <div className="nav-user-menu" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-              <span className="user-name" style={{ fontWeight: 'bold' }}>Hello, {user.name?.split(' ')[0]}</span>
-              <button
-                onClick={logout}
-                className="logout-btn"
-                style={{
-                  background: 'none',
-                  border: '1px solid #ff4444',
-                  color: '#ff4444',
-                  padding: '5px 10px',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
+            <div className="nav-user-menu">
+              <span className="user-name">Hello, {user.name?.split(' ')[0]}</span>
+              <button onClick={logout} className="logout-btn">
                 Logout
               </button>
             </div>
@@ -84,7 +85,7 @@ export default function Navbar() {
             onClick={toggleTheme}
             aria-label="Toggle dark mode"
           >
-            {isDark ? "🌙" : "☀️"}
+            {isDark ? <MoonIcon className="w-6 h-6" /> : <SunIcon className="w-6 h-6" />}
           </button>
         </nav>
 
@@ -93,7 +94,7 @@ export default function Navbar() {
           className="mobile-menu-icon"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? "✖" : "☰"}
+          {menuOpen ? <XMarkIcon className="w-7 h-7" /> : <Bars3Icon className="w-7 h-7" />}
         </div>
 
       </div>
@@ -108,13 +109,13 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <div className="mobile-link" style={{ color: '#2c3e50', fontWeight: 'bold' }}>
-                👤 {user.name}
+              <div className="mobile-link user-mobile-link">
+                <UserCircleIcon className="w-5 h-5 inline-block mr-2" />
+                {user.name}
               </div>
               <button
                 onClick={() => { logout(); setMenuOpen(false); }}
-                className="mobile-link"
-                style={{ color: '#ff4444', textAlign: 'left', width: '100%', background: 'none', border: 'none' }}
+                className="mobile-link mobile-logout"
               >
                 Logout
               </button>
@@ -128,7 +129,11 @@ export default function Navbar() {
             className="mobile-theme-toggle"
             onClick={() => { toggleTheme(); setMenuOpen(false); }}
           >
-            {isDark ? "🌙 Dark Mode" : "☀️ Light Mode"}
+            {isDark ? (
+              <> <MoonIcon className="w-5 h-5 mr-2" /> Dark Mode </>
+            ) : (
+              <> <SunIcon className="w-5 h-5 mr-2" /> Light Mode </>
+            )}
           </button>
         </div>
       )}

@@ -1,4 +1,16 @@
 import React, { useState } from "react";
+import {
+  UserCircleIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  HomeIcon,
+  ShoppingCartIcon,
+  PlusCircleIcon,
+  ClipboardDocumentListIcon,
+  MapPinIcon,
+  InformationCircleIcon,
+  PhoneIcon
+} from "@heroicons/react/24/outline";
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -13,14 +25,22 @@ export default function Sidebar() {
         onClick={() => setOpenAuthMenu(!openAuthMenu)}
       >
         <div className="login-left">
-          <div className="login-icon">👤</div>
+          <div className="login-icon">
+            <UserCircleIcon className="w-8 h-8" />
+          </div>
           <div>
             <div className="login-text">Login / Signup</div>
             <div className="login-subtext">My Account</div>
           </div>
         </div>
 
-        <div className="login-arrow">{openAuthMenu ? "▲" : "▼"}</div>
+        <div className="login-arrow">
+          {openAuthMenu ? (
+            <ChevronUpIcon className="w-5 h-5" />
+          ) : (
+            <ChevronDownIcon className="w-5 h-5" />
+          )}
+        </div>
       </div>
 
       {/* ===== DROPDOWN ===== */}
@@ -55,7 +75,7 @@ export default function Sidebar() {
           className="sidebar-item"
           onClick={() => (window.location.href = "/")}
         >
-          <span className="sidebar-icon">🏠</span>
+          <span className="sidebar-icon"><HomeIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">Home</span>
         </div>
 
@@ -63,7 +83,7 @@ export default function Sidebar() {
           className="sidebar-item"
           onClick={() => (window.location.href = "/marketplace")}
         >
-          <span className="sidebar-icon">🌾</span>
+          <span className="sidebar-icon"><ShoppingCartIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">Marketplace</span>
         </div>
       </div>
@@ -76,7 +96,7 @@ export default function Sidebar() {
           className="sidebar-item"
           onClick={() => (window.location.href = "/upload")}
         >
-          <span className="sidebar-icon">📄</span>
+          <span className="sidebar-icon"><PlusCircleIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">Sell Crop</span>
         </div>
 
@@ -84,7 +104,7 @@ export default function Sidebar() {
           className="sidebar-item"
           onClick={() => (window.location.href = "/myads")}
         >
-          <span className="sidebar-icon">📝</span>
+          <span className="sidebar-icon"><ClipboardDocumentListIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">My Ads</span>
         </div>
       </div>
@@ -94,17 +114,17 @@ export default function Sidebar() {
         <div className="sidebar-section-title">OTHERS</div>
 
         <div className="sidebar-item">
-          <span className="sidebar-icon">📍</span>
+          <span className="sidebar-icon"><MapPinIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">All India</span>
         </div>
 
         <div className="sidebar-item">
-          <span className="sidebar-icon">ℹ️</span>
+          <span className="sidebar-icon"><InformationCircleIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">About AgriConnect</span>
         </div>
 
         <div className="sidebar-item">
-          <span className="sidebar-icon">📞</span>
+          <span className="sidebar-icon"><PhoneIcon className="w-6 h-6" /></span>
           <span className="sidebar-text">Contact Us</span>
         </div>
       </div>

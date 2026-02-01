@@ -3,6 +3,7 @@ import React from 'react';
 import LandingHero from '../components/LandingHero';
 import FeaturesSection from '../components/Home/FeaturesSection';
 import FAQSection from '../components/Home/FAQSection';
+import HowItWorks from '../components/Home/HowItWorks';
 import Marketplace from './Marketplace';
 import { generateOrganizationSchema, generateWebSiteSchema } from '../seo/schema';
 
@@ -20,6 +21,7 @@ export default function Home({ searchTerm }) {
             </script>
 
             <LandingHero />
+            <HowItWorks />
             <FeaturesSection />
 
             {/* Marketplace Preview Section */}

@@ -36,40 +36,44 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-passport.use(
-    new GoogleStrategy(
-        {
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: process.env.NODE_ENV === 'production'
-                ? 'https://agriconnect-smart-agriculture-food.onrender.com/auth/google/callback'
-                : '/auth/google/callback',
-            proxy: true
-        },
-        async (accessToken, refreshToken, profile, done) => {
-            try {
-                // Check if user exists
-                const existingUser = await prisma.user.findUnique({
-                    where: { googleId: profile.id }
-                });
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    passport.use(
+        new GoogleStrategy(
+            {
+                clientID: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                callbackURL: process.env.NODE_ENV === 'production'
+                    ? 'https://agriconnect-smart-agriculture-food.onrender.com/auth/google/callback'
+                    : '/auth/google/callback',
+                proxy: true
+            },
+            async (accessToken, refreshToken, profile, done) => {
+                try {
+                    // Check if user exists
+                    const existingUser = await prisma.user.findUnique({
+                        where: { googleId: profile.id }
+                    });
 
-                if (existingUser) {
-                    return done(null, existingUser);
-                }
-
-                // Create new user
-                const newUser = await prisma.user.create({
-                    data: {
-                        googleId: profile.id,
-                        email: profile.emails[0].value,
-                        name: profile.displayName,
-                        role: 'BUYER' // Default role
+                    if (existingUser) {
+                        return done(null, existingUser);
                     }
-                });
-                done(null, newUser);
-            } catch (err) {
-                done(err, null);
+
+                    // Create new user
+                    const newUser = await prisma.user.create({
+                        data: {
+                            googleId: profile.id,
+                            email: profile.emails[0].value,
+                            name: profile.displayName,
+                            role: 'BUYER' // Default role
+                        }
+                    });
+                    done(null, newUser);
+                } catch (err) {
+                    done(err, null);
+                }
             }
-        }
-    )
-);
+        )
+    );
+} else {
+    console.warn("GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET missing. Google Auth disabled.");
+}

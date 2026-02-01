@@ -9,6 +9,12 @@ router.get('/logout', authController.logout);
 
 router.get(
     '/google',
+    (req, res, next) => {
+        if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+            return res.status(503).send('Google Auth is not configured on this server.');
+        }
+        next();
+    },
     passport.authenticate('google', {
         scope: ['profile', 'email']
     })

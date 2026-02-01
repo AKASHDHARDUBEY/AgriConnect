@@ -1,17 +1,32 @@
 // src/pages/Marketplace.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CropListing from "../components/CropListing";
 import SEO from "../components/SEO";
 import { ROUTES_SEO } from "../seo/metaConfig";
 import { FunnelIcon, MapPinIcon, BarsArrowDownIcon } from "@heroicons/react/24/outline";
+import { useSearchParams } from "react-router-dom";
 import "./Marketplace.css";
 
-export default function Marketplace({ searchTerm, isPreview = false }) {
+export default function Marketplace({ searchTerm: propSearchTerm, isPreview = false }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Initialize from URL or defaults
   const [filters, setFilters] = useState({
-    category: "All Categories",
-    sort: "default",
-    location: "All India",
+    category: searchParams.get("category") || "All Categories",
+    sort: searchParams.get("sort") || "default",
+    location: searchParams.get("location") || "All India",
   });
+
+  // Sync state to URL when filters change (only if not in preview mode)
+  useEffect(() => {
+    if (!isPreview) {
+      const params = {};
+      if (filters.category !== "All Categories") params.category = filters.category;
+      if (filters.sort !== "default") params.sort = filters.sort;
+      if (filters.location !== "All India") params.location = filters.location;
+      setSearchParams(params);
+    }
+  }, [filters, isPreview, setSearchParams]);
 
   const { title, description } = ROUTES_SEO["/marketplace"];
 

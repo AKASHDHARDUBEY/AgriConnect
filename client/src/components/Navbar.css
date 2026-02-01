@@ -55,13 +55,64 @@
 
 .nav-link {
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--text-secondary);
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .nav-link:hover {
+    color: var(--primary);
+}
+
+/* DROPDOWN */
+.nav-dropdown-container {
+    position: relative;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    padding: 0.5rem;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-dropdown-container:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: var(--bg);
     color: var(--primary);
 }
 
@@ -141,6 +192,11 @@
     display: none;
     color: var(--text);
     cursor: pointer;
+    transition: color 0.2s;
+}
+
+.mobile-menu-icon:hover {
+    color: var(--primary);
 }
 
 @media (max-width: 768px) {
@@ -167,6 +223,12 @@
     gap: 1rem;
     box-shadow: var(--card-shadow);
     animation: slideDown 0.3s ease;
+}
+
+/* Dark mode adjustment for dropdown */
+html.dark .nav-dropdown-menu {
+    background: var(--surface);
+    border-color: var(--border);
 }
 
 @keyframes slideDown {

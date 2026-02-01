@@ -4,6 +4,7 @@ import LandingHero from '../components/LandingHero';
 import FeaturesSection from '../components/Home/FeaturesSection';
 import FAQSection from '../components/Home/FAQSection';
 import HowItWorks from '../components/Home/HowItWorks';
+import CategoryGrid from '../components/Home/CategoryGrid';
 import Marketplace from './Marketplace';
 import { generateOrganizationSchema, generateWebSiteSchema } from '../seo/schema';
 
@@ -22,6 +23,7 @@ export default function Home({ searchTerm }) {
 
             <LandingHero />
             <HowItWorks />
+            <CategoryGrid />
             <FeaturesSection />
 
             {/* Marketplace Preview Section */}

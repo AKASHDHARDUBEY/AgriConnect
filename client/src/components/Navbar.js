@@ -6,7 +6,8 @@ import {
   MoonIcon,
   Bars3Icon,
   XMarkIcon,
-  UserCircleIcon
+  UserCircleIcon,
+  ChevronDownIcon
 } from "@heroicons/react/24/outline";
 import "./Navbar.css";
 
@@ -64,7 +65,20 @@ export default function Navbar() {
         {/* DESKTOP NAV LINKS */}
         <nav className="navbar-links">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/marketplace" className="nav-link">Marketplace</Link>
+
+          {/* MARKETPLACE DROPDOWN */}
+          <div className="nav-dropdown-container">
+            <Link to="/marketplace" className="nav-link dropdown-trigger">
+              Marketplace <ChevronDownIcon className="w-4 h-4" />
+            </Link>
+            <div className="nav-dropdown-menu">
+              <Link to="/marketplace" className="dropdown-item">All Products</Link>
+              <Link to="/marketplace?category=Vegetables" className="dropdown-item">Vegetables</Link>
+              <Link to="/marketplace?category=Fruits" className="dropdown-item">Fruits</Link>
+              <Link to="/marketplace?category=Cereals" className="dropdown-item">Cereals</Link>
+              <Link to="/marketplace?category=Pulses" className="dropdown-item">Pulses</Link>
+            </div>
+          </div>
           <Link to="/farm" className="nav-link">Farmer Dashboard</Link>
           {user ? (
             <div className="nav-user-menu">

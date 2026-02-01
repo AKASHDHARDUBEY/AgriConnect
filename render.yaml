@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: agriconnect-server
+    env: node
+    rootCommand: cd server
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: false

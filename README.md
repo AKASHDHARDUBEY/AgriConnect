@@ -175,4 +175,4 @@ This project is licensed under the MIT License.
 
 ###  Hackathon Details
 **Theme:** Smart Agriculture & Food Security
-**Event:** Sustainable Tech Innovation 2025
+**Event:** Sustainable Tech Innovation 2025.

@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /auth/
-Disallow: /api/
-
-Sitemap: https://agriconnect.in/sitemap.xml

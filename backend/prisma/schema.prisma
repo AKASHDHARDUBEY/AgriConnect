@@ -1,0 +1,44 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  phone     String?
+  role      String    // "FARMER" or "BUYER"
+  location  String?   // e.g. "Nashik, Maharashtra"
+  listings  Listing[] // A farmer can have many listings
+  createdAt DateTime  @default(now())
+}
+
+model Listing {
+  id          Int      @id @default(autoincrement())
+  cropName    String
+  quantity    Float
+  unit        String   // "KG" or "QUINTAL"
+  price       Float
+  imageUrl    String   // URL from AWS S3
+  harvestDate DateTime
+  farmerId    Int
+  farmer      User     @relation(fields: [farmerId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model MarketPrice {
+  id         Int      @id @default(autoincrement())
+  cropName   String
+  mandiName  String
+  modalPrice Float
+  minPrice   Float
+  maxPrice   Float
+  date       DateTime @default(now())
+}

@@ -23,6 +23,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   products  Product[]
+  alerts    PriceAlert[]
 }
 
 model Product {
@@ -37,4 +38,24 @@ model Product {
   farmer      User     @relation(fields: [farmerId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model PriceData {
+  id        Int      @id @default(autoincrement())
+  market    String
+  commodity String
+  state     String?
+  price     Float
+  date      DateTime @default(now())
+  source    String   // 'GOV_API' or 'AGMARKNET'
+}
+
+model PriceAlert {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  commodity   String
+  targetPrice Float
+  condition   String   // 'BELOW' or 'ABOVE'
+  createdAt   DateTime @default(now())
 }

@@ -90,10 +90,12 @@ app.use((req, res, next) => {
 
 const authRouter = require('./routes/authRoutes');
 const productRouter = require('./routes/productRoutes');
+const priceRouter = require('./routes/priceRoutes');
 
 // 2) ROUTES
 app.use('/auth', authRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/prices', priceRouter);
 
 app.get('/', (req, res) => {
     res.status(200).json({

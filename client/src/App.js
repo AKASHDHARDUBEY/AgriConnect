@@ -16,6 +16,7 @@ import LandingHero from "./components/LandingHero";
 import Marketplace from "./pages/Marketplace";
 import UploadPage from "./pages/UploadPage";
 import MyAdsPage from "./pages/MyAdsPage";
+import PriceIntelligence from "./pages/PriceIntelligence";
 
 /* AUTH PAGES */
 import Login from "./components/Login";
@@ -95,6 +96,18 @@ export default function App() {
                   setSearchTerm={setSearchTerm}
                 >
                   <UploadPage onCropAdded={handleCropAdded} />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/price-intelligence"
+              element={
+                <MainLayout
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                >
+                  <PriceIntelligence />
                 </MainLayout>
               }
             />

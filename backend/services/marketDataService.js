@@ -4,8 +4,8 @@ const prisma = new PrismaClient();
 
 const DATA_GOV_API_KEY = process.env.DATA_GOV_API_KEY;
 const BASE_URL = "https://api.data.gov.in/resource";
-// Standard government resource ID for Agmarknet Realtime Mandi Daily Prices
-const RESOURCE_ID = "9ef8428d-0581-4475-ab1c-e1d95aae2212";
+// Use the custom user-provided resource ID or fallback to default
+const RESOURCE_ID = process.env.MARKET_DATA_RESOURCE_ID || "9ef8428d-0581-4475-ab1c-e1d95aae2212";
 
 const fetchRealMandiPrices = async (cropName) => {
     try {
@@ -45,14 +45,29 @@ const fetchRealMandiPrices = async (cropName) => {
         }
 
         // Map government records (Agmarknet schema) to our local schema
-        const formattedPrices = records.map(rec => ({
-            cropName: rec.commodity || cropName,
-            mandiName: `${rec.market}, ${rec.state}`,
-            modalPrice: parseFloat(rec.modal_price) || 0,
-            minPrice: parseFloat(rec.min_price) || 0,
-            maxPrice: parseFloat(rec.max_price) || 0,
-            date: new Date(rec.arrival_date || Date.now()),
-        }));
+        const formattedPrices = records.map(rec => {
+            let parsedDate = new Date();
+            if (rec.arrival_date) {
+                // If it's DD/MM/YYYY format
+                const parts = String(rec.arrival_date).split('/');
+                if (parts.length === 3) {
+                    parsedDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                }
+                // Check if it's still Invalid Date
+                if (isNaN(parsedDate.getTime())) {
+                    parsedDate = new Date();
+                }
+            }
+
+            return {
+                cropName: rec.commodity || cropName,
+                mandiName: `${rec.market}, ${rec.state}`,
+                modalPrice: parseFloat(rec.modal_price) || 0,
+                minPrice: parseFloat(rec.min_price) || 0,
+                maxPrice: parseFloat(rec.max_price) || 0,
+                date: parsedDate,
+            };
+        });
 
         for (const price of formattedPrices) {
             await prisma.marketPrice.create({

@@ -99,5 +99,14 @@ router.get('/satellite-ndvi', async (req, res) => {
         res.status(500).json({ error: "Satellite imagery pipeline failure" });
     }
 });
+router.get('/update-prices', async (req, res) => {
+    const { fetchRealMandiPrices } = require('../services/marketDataService');
+    
+    // Try updating for a few main crops
+    await fetchRealMandiPrices('Tomato');
+    await fetchRealMandiPrices('Potato');
+    
+    res.json({ message: "Government data sync triggered!" });
+});
 
 module.exports = router;

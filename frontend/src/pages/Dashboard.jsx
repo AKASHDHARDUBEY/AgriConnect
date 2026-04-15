@@ -9,36 +9,55 @@ const Dashboard = () => {
     const [rec, setRec] = useState(null);
     const [ndviData, setNdviData] = useState(null);
     const [trendData, setTrendData] = useState([]);
+    const [dailyPrices, setDailyPrices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [syncing, setSyncing] = useState(false);
     const { user } = useAuth();
 
+    const fetchDashboardData = async () => {
+        try {
+            // 1. Fetch AI Recommendation
+            const recRes = await axios.get('http://localhost:5000/api/market/recommendation/1');
+            setRec(recRes.data);
+
+            // 2. Fetch Sentinel Hub Satellite Crop Health NDVI
+            const ndviRes = await axios.get('http://localhost:5000/api/market/satellite-ndvi?lat=20.0016&lon=73.7898');
+            setNdviData(ndviRes.data);
+
+            // 3. Fetch Daily Mandi Prices
+            const dailyPricesRes = await axios.get('http://localhost:5000/api/market/daily-prices');
+            setDailyPrices(dailyPricesRes.data);
+
+            // 4. Simulate Market Trend Data for the Chart
+            const fakeTrend = [
+                { day: 'Day 1', price: 18 }, { day: 'Day 5', price: 19 },
+                { day: 'Day 10', price: 17 }, { day: 'Day 15', price: 22 },
+                { day: 'Day 20', price: 21 }, { day: 'Day 25', price: 25 },
+                { day: 'Today', price: 24 },
+            ];
+            setTrendData(fakeTrend);
+        } catch (err) {
+            console.error("Error loading dashboard data", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchDashboardData = async () => {
-            try {
-                // 1. Fetch AI Recommendation
-                const recRes = await axios.get('http://localhost:5000/api/market/recommendation/1');
-                setRec(recRes.data);
-
-                // 2. Fetch Sentinel Hub Satellite Crop Health NDVI
-                const ndviRes = await axios.get('http://localhost:5000/api/market/satellite-ndvi?lat=20.0016&lon=73.7898');
-                setNdviData(ndviRes.data);
-
-                // 3. Simulate Market Trend Data for the Chart
-                const fakeTrend = [
-                    { day: 'Day 1', price: 18 }, { day: 'Day 5', price: 19 },
-                    { day: 'Day 10', price: 17 }, { day: 'Day 15', price: 22 },
-                    { day: 'Day 20', price: 21 }, { day: 'Day 25', price: 25 },
-                    { day: 'Today', price: 24 },
-                ];
-                setTrendData(fakeTrend);
-            } catch (err) {
-                console.error("Error loading dashboard data", err);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchDashboardData();
     }, []);
+
+    const triggerManualSync = async () => {
+        try {
+            setSyncing(true);
+            await axios.get('http://localhost:5000/api/market/update-prices');
+            await fetchDashboardData();
+        } catch (err) {
+            console.error("Sync error", err);
+        } finally {
+            setSyncing(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -59,12 +78,21 @@ const Dashboard = () => {
                         <h1 className="text-3xl font-extrabold text-green-950 tracking-tight">Welcome, {user?.displayName || "Farmer Rajesh"} 👋</h1>
                         <p className="text-gray-500 text-sm mt-1">Here is your production-grade precision intelligence overview for today.</p>
                     </div>
-                    <div className="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold border border-emerald-200 shadow-sm flex items-center gap-2">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        Live Sensor Connectivity: Active
+                    <div className="flex items-center gap-3">
+                        <button 
+                            onClick={triggerManualSync}
+                            disabled={syncing}
+                            className={`px-5 py-2.5 rounded-full text-xs font-bold shadow-sm transition ${syncing ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-green-800 hover:bg-green-900 text-white'}`}
+                        >
+                            {syncing ? '🔄 Syncing Data...' : '🔌 Sync Gov Prices'}
+                        </button>
+                        <div className="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold border border-emerald-200 shadow-sm flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Live Sensor Connectivity: Active
+                        </div>
                     </div>
                 </div>
 
@@ -183,6 +211,63 @@ const Dashboard = () => {
                     </div>
 
                 </div>
+
+                {/* LIVE GOVERNMENT MANDI PRICES TABLE */}
+                <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mt-8">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                            <h3 className="text-xl font-extrabold text-gray-800 tracking-tight">Live Mandi Daily Prices (Data.gov.in Feed)</h3>
+                            <p className="text-gray-400 text-xs mt-0.5">Real-time daily mandi prices synced from government Agmarknet listings</p>
+                        </div>
+                        <span className="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-200 shadow-sm flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            API Feed Connected
+                        </span>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="border-b border-gray-150 text-[10px] uppercase text-gray-400 font-extrabold tracking-wider">
+                                    <th className="py-4 px-2">Crop Name</th>
+                                    <th className="py-4 px-2">Mandi / Location</th>
+                                    <th className="py-4 px-2">Modal Price</th>
+                                    <th className="py-4 px-2">Price Range (Min - Max)</th>
+                                    <th className="py-4 px-2">Date / Arrival</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100 text-sm">
+                                {dailyPrices.map((price) => (
+                                    <tr key={price.id} className="hover:bg-gray-50/50 transition">
+                                        <td className="py-4 px-2 font-bold text-gray-850 capitalize">{price.cropName}</td>
+                                        <td className="py-4 px-2 text-gray-600 font-medium">{price.mandiName}</td>
+                                        <td className="py-4 px-2 font-extrabold text-green-800">
+                                            ₹{price.modalPrice.toLocaleString()} <span className="text-[10px] font-normal text-gray-400">/ Quintal</span>
+                                            <span className="block text-[10px] text-gray-400 font-normal">≈ ₹{(price.modalPrice / 100).toFixed(2)} / KG</span>
+                                        </td>
+                                        <td className="py-4 px-2 text-gray-500 font-bold">
+                                            ₹{price.minPrice.toLocaleString()} - ₹{price.maxPrice.toLocaleString()}
+                                        </td>
+                                        <td className="py-4 px-2 text-gray-400 text-xs font-semibold">
+                                            {new Date(price.date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
+                                        </td>
+                                    </tr>
+                                ))}
+                                {dailyPrices.length === 0 && (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-8 text-gray-400 font-semibold">
+                                            No government Mandi price logs found. Click 'Sync Gov Prices' to pull live entries.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </>
     );

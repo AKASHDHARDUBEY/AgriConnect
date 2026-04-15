@@ -51,28 +51,39 @@ router.get('/fair-price/:cropName', async (req, res) => {
     }
 });
 
+const { analyzeMarketPressure } = require('../services/enamService');
+
 router.get('/recommendation/:farmerId', async (req, res) => {
     try {
-        // In a real app, we would fetch the farmer's soil data from the DB
-        // For now, we simulate a 'Soil Analysis' and 'Market Trend' check
-        const crops = [
-            { name: 'Yellow Maize', profit: '+15%', risk: 'Low', reason: 'High demand in export markets and low rainfall requirement.' },
-            { name: 'Organic Tomatoes', profit: '+22%', risk: 'High', reason: 'High profit but high risk of pest attack this season.' },
-            { name: 'Soybeans', profit: '+8%', risk: 'Medium', reason: 'Stable market demand and good soil compatibility.' }
-        ];
-
-        // "AI Logic": Pick the crop with the best profit-to-risk ratio
-        const recommendation = crops[0]; // Simulating the AI picking Maize
+        const pressure = await analyzeMarketPressure('Yellow Maize');
+        
+        let advice = "eNAM supply volume is stable. Good timing to cultivate Yellow Maize.";
+        let risk = "Low";
+        let profit = "+15%";
+        let confidence = "92%";
+        
+        if (pressure === "HIGH_SUPPLY_WARNING") {
+            advice = "Caution: Massive supply arrivals detected in eNAM markets. Prices may drop soon. Consider selling existing inventory now.";
+            risk = "High";
+            profit = "+5%";
+            confidence = "80%";
+        } else if (pressure === "LOW_SUPPLY_OPPORTUNITY") {
+            advice = "Opportunity: Shortage of arrivals detected in national markets. High demand expected. Grow Yellow Maize to maximize profits!";
+            risk = "Very Low";
+            profit = "+28%";
+            confidence = "97%";
+        }
 
         res.json({
-            recommendedCrop: recommendation.name,
-            projectedProfit: recommendation.profit,
-            riskLevel: recommendation.risk,
-            analysis: recommendation.reason,
-            confidenceScore: "92%"
+            recommendedCrop: 'Yellow Maize',
+            projectedProfit: profit,
+            riskLevel: risk,
+            analysis: advice,
+            confidenceScore: confidence,
+            marketPressure: pressure
         });
     } catch (error) {
-        res.status(500).json({ error: "AI Engine failure" });
+        res.status(500).json({ error: "AI recommendation pipeline failure" });
     }
 });
 

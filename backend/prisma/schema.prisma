@@ -42,3 +42,11 @@ model MarketPrice {
   maxPrice   Float
   date       DateTime @default(now())
 }
+
+model MarketArrivals {
+  id        Int      @id @default(autoincrement())
+  cropName  String
+  mandiName String
+  quantity  Float    // How many tons arrived today
+  date      DateTime @default(now())
+}

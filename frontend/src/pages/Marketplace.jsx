@@ -136,6 +136,11 @@ const ProductCard = ({ product }) => {
                         <p className="flex items-center gap-2 text-gray-550">
                             <span className="text-xs">📍</span> <span>{product.farmer?.location || "Nashik, Maharashtra"}</span>
                         </p>
+                        {product.distanceKm !== undefined && (
+                            <p className="flex items-center gap-2 text-emerald-700 text-xs font-bold mt-1">
+                                <span className="text-xs">🚚</span> <span>{product.distanceKm} km away</span>
+                            </p>
+                        )}
                     </div>
                 </div>
 

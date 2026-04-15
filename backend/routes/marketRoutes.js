@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { calculateModalPrice, getFairRange } = require('../services/priceIntelligence');
 
 router.get('/fair-price/:cropName', async (req, res) => {
     try {
@@ -23,24 +24,23 @@ router.get('/fair-price/:cropName', async (req, res) => {
             return res.status(404).json({ message: "No market data found for this crop." });
         }
 
-        // 2. Calculate the Average (Modal) Price
-        const sum = prices.reduce((acc, curr) => acc + curr.modalPrice, 0);
-        const avgPrice = sum / prices.length;
+        // 2. Extract modalPrice values from historical records
+        const modalPricesArray = prices.map(p => p.modalPrice);
 
-        // 3. Define Fair Range (Average +/- 10%)
-        const minFair = avgPrice * 0.9;
-        const maxFair = avgPrice * 1.1;
+        // 3. Calculate production-grade modal price and fair range
+        const modalPriceVal = calculateModalPrice(modalPricesArray);
+        const fairRange = getFairRange(modalPriceVal);
 
         // 4. Anomaly Detection: Check if latest price dropped by more than 20%
         const latestPrice = prices[0].modalPrice;
-        const isAnomaly = latestPrice < avgPrice * 0.8;
+        const isAnomaly = latestPrice < modalPriceVal * 0.8;
 
         res.json({
             crop: cropName,
-            modalPrice: avgPrice.toFixed(2),
+            modalPrice: modalPriceVal.toFixed(2),
             fairRange: {
-                min: minFair.toFixed(2),
-                max: maxFair.toFixed(2)
+                min: fairRange.min.toFixed(2),
+                max: fairRange.max.toFixed(2)
             },
             status: isAnomaly ? "ANOMALY_DETECTED" : "STABLE",
             alert: isAnomaly ? "⚠️ Abnormal price drop detected in nearby markets!" : "Market is stable."
@@ -73,6 +73,19 @@ router.get('/recommendation/:farmerId', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ error: "AI Engine failure" });
+    }
+});
+
+const { getCropHealthNDVI } = require('../services/satelliteService');
+
+router.get('/satellite-ndvi', async (req, res) => {
+    try {
+        const lat = parseFloat(req.query.lat) || 20.0016; // Nashik lat
+        const lon = parseFloat(req.query.lon) || 73.7898; // Nashik lon
+        const healthData = await getCropHealthNDVI(lat, lon);
+        res.json(healthData);
+    } catch (error) {
+        res.status(500).json({ error: "Satellite imagery pipeline failure" });
     }
 });
 

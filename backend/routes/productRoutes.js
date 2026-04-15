@@ -25,10 +25,19 @@ router.post('/list', async (req, res) => {
 
 // Get all products for the marketplace
 router.get('/all', async (req, res) => {
-    const products = await prisma.listing.findMany({
-        include: { farmer: true } // This joins the User table to see who the farmer is
-    });
-    res.json(products);
+    try {
+        const products = await prisma.listing.findMany({
+            include: { 
+                farmer: {
+                    select: { name: true, phone: true, location: true } 
+                } 
+            },
+            orderBy: { createdAt: 'desc' } // Show newest listings first
+        });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: "Could not fetch products" });
+    }
 });
 
 module.exports = router;

@@ -24,7 +24,7 @@ model Listing {
   id          Int      @id @default(autoincrement())
   cropName    String
   quantity    Float
-  unit        String   // "KG" or "QUINTAL"
+  unit        String   @default("KG")
   price       Float
   imageUrl    String   // URL from AWS S3
   harvestDate DateTime

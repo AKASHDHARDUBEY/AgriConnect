@@ -9,6 +9,20 @@ async function main() {
 
   // Clear existing entries
   await prisma.marketPrice.deleteMany();
+  await prisma.listing.deleteMany();
+  await prisma.user.deleteMany();
+
+  console.log("👤 Seeding default farmer...");
+  await prisma.user.create({
+    data: {
+      id: 1,
+      name: "Ramesh Kumar",
+      email: "ramesh@agriconnect.com",
+      phone: "+919876543210",
+      role: "FARMER",
+      location: "Nashik, Maharashtra"
+    }
+  });
 
   for (const crop of crops) {
     for (const mandi of mandis) {

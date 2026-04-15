@@ -23,6 +23,9 @@ const Navbar = () => {
             </div>
             
             <div className="flex items-center gap-6">
+                <Link to="/dashboard" className="text-sm font-semibold text-gray-600 hover:text-green-800 transition">
+                    Dashboard
+                </Link>
                 <Link to="/marketplace" className="text-sm font-semibold text-gray-600 hover:text-green-800 transition">
                     Marketplace
                 </Link>

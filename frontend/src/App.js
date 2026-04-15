@@ -4,6 +4,7 @@ import ListProduce from './pages/ListProduce';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
 import Marketplace from './pages/Marketplace';
+import Dashboard from './pages/Dashboard';
 import { useAuth } from './context/AuthContext';
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={user ? <Navigate to="/list-produce" /> : <Login />} />
+          <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
           <Route path="/list-produce" element={user ? <ListProduce /> : <Navigate to="/login" />} />
           <Route path="/marketplace" element={user ? <Marketplace /> : <Navigate to="/login" />} />
+          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

@@ -51,4 +51,29 @@ router.get('/fair-price/:cropName', async (req, res) => {
     }
 });
 
+router.get('/recommendation/:farmerId', async (req, res) => {
+    try {
+        // In a real app, we would fetch the farmer's soil data from the DB
+        // For now, we simulate a 'Soil Analysis' and 'Market Trend' check
+        const crops = [
+            { name: 'Yellow Maize', profit: '+15%', risk: 'Low', reason: 'High demand in export markets and low rainfall requirement.' },
+            { name: 'Organic Tomatoes', profit: '+22%', risk: 'High', reason: 'High profit but high risk of pest attack this season.' },
+            { name: 'Soybeans', profit: '+8%', risk: 'Medium', reason: 'Stable market demand and good soil compatibility.' }
+        ];
+
+        // "AI Logic": Pick the crop with the best profit-to-risk ratio
+        const recommendation = crops[0]; // Simulating the AI picking Maize
+
+        res.json({
+            recommendedCrop: recommendation.name,
+            projectedProfit: recommendation.profit,
+            riskLevel: recommendation.risk,
+            analysis: recommendation.reason,
+            confidenceScore: "92%"
+        });
+    } catch (error) {
+        res.status(500).json({ error: "AI Engine failure" });
+    }
+});
+
 module.exports = router;

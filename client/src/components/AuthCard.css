@@ -1,0 +1,88 @@
+/* Center wrapper */
+.auth-wrapper {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--bg);
+}
+
+/* Card */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 2.2rem;
+    border-radius: 18px;
+    background: var(--surface);
+    box-shadow: var(--card-shadow);
+    transition: 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Titles */
+.auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--primary);
+}
+
+.auth-subtitle {
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+}
+
+/* Form */
+.auth-form input {
+    width: 100%;
+    padding: 0.85rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+    transition: 0.2s ease;
+}
+
+.auth-form input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.auth-btn:hover {
+    background: #3fa344;
+    transform: translateY(-2px);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--primary);
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}

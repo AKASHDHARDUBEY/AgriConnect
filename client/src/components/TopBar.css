@@ -1,0 +1,142 @@
+.top-bar {
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 60px;
+  z-index: 80;
+}
+
+.top-bar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.location-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.location-icon {
+  font-size: 0.9rem;
+}
+
+.location-dropdown {
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  font-weight: 500;
+}
+
+.top-bar-center {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-box-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+}
+
+.search-icon-top {
+  color: #999;
+  margin-right: 0.5rem;
+  stroke-width: 2;
+}
+
+.search-input-top {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.search-input-top::placeholder {
+  color: #999;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+}
+
+.sell-button {
+  background: #ffc107;
+  color: #333;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sell-button:hover {
+  background: #ffb300;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sell-icon {
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-bar-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .top-bar-center {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .top-bar-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sell-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

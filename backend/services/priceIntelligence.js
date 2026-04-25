@@ -36,7 +36,7 @@ const getFairRange = (modalPrice) => {
  * Simulates fetching real-time agricultural data from Data.gov.in / Agmarknet scraper.
  */
 const fetchRealMarketData = async () => {
-    console.log("📡 Querying Agmarknet Scraper & Data.gov.in API...");
+    console.log("� Querying Agmarknet Scraper & Data.gov.in API...");
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 500));
     
@@ -72,7 +72,7 @@ const aggregateMarketData = async () => {
                 }
             });
         }
-        console.log("✅ Successfully aggregated and stored eNAM market listings.");
+        console.log(" Successfully aggregated and stored eNAM market listings.");
     } catch (err) {
         console.error("❌ Scheduled data aggregation failed:", err);
     }

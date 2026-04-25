@@ -1,0 +1,33 @@
+/* ============================== */
+/*  SHARED AUTH PAGE STYLES       */
+/* ============================== */
+
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    color: var(--text);
+}
+
+/* Optional container wrapper */
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Dark mode support */
+html.dark .auth-page {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-page {
+        padding: 1rem;
+    }
+}

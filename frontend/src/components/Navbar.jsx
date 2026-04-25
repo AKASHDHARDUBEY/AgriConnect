@@ -18,7 +18,7 @@ const Navbar = () => {
     return (
         <nav className="bg-white border-b border-gray-150 px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
             <div className="flex items-center gap-3">
-                <span className="text-2xl">🌱</span>
+                <span className="text-2xl"></span>
                 <span className="font-extrabold text-green-800 text-xl tracking-tight">AgriConnect</span>
             </div>
             
@@ -36,7 +36,7 @@ const Navbar = () => {
                 {user && (
                     <div className="flex items-center gap-4 border-l border-gray-200 pl-6">
                         <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">
-                            👤 {user.displayName || user.email}
+                             {user.displayName || user.email}
                         </span>
                         <button 
                             onClick={handleLogout}

@@ -10,7 +10,7 @@ const LandingPage = () => {
             {/* Header */}
             <header className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto border-b border-white/10">
                 <div className="flex items-center gap-3">
-                    <span className="text-3xl">🌱</span>
+                    <span className="text-3xl"></span>
                     <span className="font-extrabold text-white text-2xl tracking-tight">AgriConnect</span>
                 </div>
                 <div className="flex items-center gap-4">
@@ -35,7 +35,7 @@ const LandingPage = () => {
             {/* Hero Section */}
             <main className="max-w-7xl mx-auto px-6 pt-16 pb-24 text-center">
                 <span className="bg-emerald-800/60 text-emerald-300 text-xs font-extrabold px-4 py-2 rounded-full uppercase tracking-widest border border-emerald-500/20">
-                    🚀 Next-Gen Precision Agriculture
+                     Next-Gen Precision Agriculture
                 </span>
                 
                 <h1 className="text-5xl md:text-7xl font-black mt-8 mb-6 leading-none tracking-tight max-w-4xl mx-auto bg-gradient-to-r from-white via-emerald-100 to-green-300 bg-clip-text text-transparent">
@@ -88,7 +88,7 @@ const LandingPage = () => {
                     {/* Feature 2 */}
                     <div className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:border-emerald-500/30 transition duration-300 group">
                         <div className="bg-emerald-800/80 w-12 h-12 rounded-2xl flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition duration-300">
-                            📊
+                            �
                         </div>
                         <h3 className="text-xl font-bold mb-3 group-hover:text-emerald-300 transition">AG-3 Price Intelligence</h3>
                         <p className="text-green-100/70 text-sm leading-relaxed">
@@ -99,7 +99,7 @@ const LandingPage = () => {
                     {/* Feature 3 */}
                     <div className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:border-emerald-500/30 transition duration-300 group">
                         <div className="bg-emerald-800/80 w-12 h-12 rounded-2xl flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition duration-300">
-                            🛒
+                            �
                         </div>
                         <h3 className="text-xl font-bold mb-3 group-hover:text-emerald-300 transition">Direct Marketplace</h3>
                         <p className="text-green-100/70 text-sm leading-relaxed">

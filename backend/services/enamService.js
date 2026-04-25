@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
  */
 const fetchENAMArrivals = async (cropName) => {
     try {
-        console.log(`📡 Fetching daily arrival volume from eNAM for: ${cropName}...`);
+        console.log(`� Fetching daily arrival volume from eNAM for: ${cropName}...`);
         
         // Pseudo-random daily volume to simulate live updates (between 100 and 1000 tons)
         const mockArrival = Math.floor(100 + Math.random() * 900);

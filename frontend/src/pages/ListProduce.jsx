@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
 
 const ListProduce = () => {
     const [formData, setFormData] = useState({
@@ -70,9 +69,7 @@ const ListProduce = () => {
     };
 
     return (
-        <>
-            <Navbar />
-            <div className="flex flex-col items-center min-h-screen bg-gray-50 py-10 px-4">
+        <div className="flex flex-col items-center min-h-screen bg-gray-50 py-10 px-4">
                 <div className="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
                     <h1 className="text-3xl font-bold text-green-800 mb-2">List New Produce</h1>
                     <p className="text-gray-500 mb-6 text-sm">Fill in the details to publish your crop on the marketplace.</p>
@@ -86,7 +83,7 @@ const ListProduce = () => {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Visual Placeholder for Photography */}
                         <div className="border-2 border-dashed border-gray-300 p-8 text-center rounded-xl cursor-pointer hover:bg-gray-50 transition duration-200">
-                            <div className="text-gray-400 text-3xl mb-1">📸</div>
+                            <div className="text-gray-400 text-3xl mb-1">�</div>
                             <p className="text-gray-500 text-sm font-medium">Click or Drag to Upload Crop Photography</p>
                             <p className="text-gray-300 text-xs mt-1">PNG, JPG up to 5MB</p>
                         </div>
@@ -102,7 +99,7 @@ const ListProduce = () => {
                                     onChange={(e) => setFormData({...formData, cropName: e.target.value})} 
                                     required
                                 />
-                                {loadingPrice && <p className="text-xs text-green-700 mt-1 animate-pulse">⚙️ Analyzing market trends...</p>}
+                                {loadingPrice && <p className="text-xs text-green-700 mt-1 animate-pulse"> Analyzing market trends...</p>}
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Quantity (KG)</label>
@@ -132,7 +129,7 @@ const ListProduce = () => {
                             {marketData ? (
                                 <div className={`mt-3 p-4 rounded-xl border transition-all duration-300 ${!formData.price ? 'bg-blue-50 border-blue-200 text-blue-800' : (isFair ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800')}`}>
                                     <div className="flex items-center gap-2 mb-1">
-                                        <span className="text-base">{!formData.price ? "💡" : (isFair ? "✅" : "⚠️")}</span>
+                                        <span className="text-base">{!formData.price ? "" : (isFair ? "" : "")}</span>
                                         <p className="font-bold text-sm">
                                             {!formData.price ? "Market Intelligence" : (isFair ? "Fair Price Validated" : "Price Warning")}
                                         </p>
@@ -149,7 +146,7 @@ const ListProduce = () => {
                                 formData.cropName.length >= 3 && !loadingPrice && (
                                     <div className="mt-3 p-4 rounded-xl border border-yellow-200 bg-yellow-50 text-yellow-800">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-base">ℹ️</span>
+                                            <span className="text-base"></span>
                                             <p className="font-bold text-sm">No Market Data Found</p>
                                         </div>
                                         <p className="text-xs">
@@ -180,7 +177,6 @@ const ListProduce = () => {
                     </form>
                 </div>
             </div>
-        </>
     );
 };
 

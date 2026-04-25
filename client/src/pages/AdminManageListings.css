@@ -1,0 +1,120 @@
+/* Listings Page Wrapper */
+.admin-listings-page {
+    width: 100%;
+    padding: 1rem;
+    max-width: 1400px;
+    margin: auto;
+    color: var(--text);
+}
+
+/* Header */
+.admin-listings-header h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+/* Search */
+.admin-listings-search {
+    margin: 1rem 0;
+}
+
+.admin-listings-search input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+/* Table Wrapper */
+.admin-listings-table-wrapper {
+    overflow-x: auto;
+}
+
+/* Table */
+.admin-listings-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.admin-listings-table th,
+.admin-listings-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.admin-listings-table th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.actions-col {
+    width: 240px;
+}
+
+/* Action buttons */
+.btn-approve,
+.btn-reject,
+.btn-delete {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 0.4rem;
+}
+
+.btn-approve {
+    background: #4caf50;
+    color: white;
+}
+
+.btn-reject {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.status-badge.approved {
+    background: rgba(76, 175, 80, 0.2);
+    color: #2e7d32;
+}
+
+.status-badge.rejected {
+    background: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.status-badge.pending {
+    background: rgba(243, 156, 18, 0.2);
+    color: #d35400;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .actions-col {
+        width: 180px;
+    }
+}

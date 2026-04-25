@@ -11,7 +11,7 @@
  *  - 0.5 to 1.0: Dense green vegetation / healthy crop
  */
 const getCropHealthNDVI = async (latitude, longitude) => {
-    console.log(`📡 Fetching Sentinel Hub Satellite band imagery for coordinates: [Lat: ${latitude}, Lon: ${longitude}]...`);
+    console.log(`� Fetching Sentinel Hub Satellite band imagery for coordinates: [Lat: ${latitude}, Lon: ${longitude}]...`);
     
     // Simulate API network latency
     await new Promise(resolve => setTimeout(resolve, 300));

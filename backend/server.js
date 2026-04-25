@@ -19,10 +19,10 @@ app.use('/api/market', marketRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(` Server running on http://localhost:${PORT}`);
     
     // Trigger startup market aggregation for testing
-    console.log("⚙️ Triggering startup market price aggregation...");
+    console.log(" Triggering startup market price aggregation...");
     const { fetchRealMandiPrices } = require('./services/marketDataService');
     const cropsToTrack = ['Tomato', 'Potato', 'Yellow Maize', 'Wheat', 'Onion'];
     cropsToTrack.forEach(crop => fetchRealMandiPrices(crop));
@@ -38,5 +38,5 @@ cron.schedule('0 0 * * *', async () => {
     for (const crop of cropsToTrack) {
         await fetchRealMandiPrices(crop);
     }
-    console.log("✅ All daily market data updated!");
+    console.log(" All daily market data updated!");
 });

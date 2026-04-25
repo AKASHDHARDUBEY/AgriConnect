@@ -10,7 +10,7 @@ const RESOURCE_ID = process.env.MARKET_DATA_RESOURCE_ID || "9ef8428d-0581-4475-a
 const fetchRealMandiPrices = async (cropName) => {
     try {
         if (!DATA_GOV_API_KEY) {
-            console.warn("⚠️ DATA_GOV_API_KEY not configured. Falling back to local data aggregation simulation.");
+            console.warn(" DATA_GOV_API_KEY not configured. Falling back to local data aggregation simulation.");
             // Simulate upserting realistic mock prices for testing/demo
             const fallbackPrices = [
                 { cropName: cropName, mandiName: "Nashik Mandi", modalPrice: 24, minPrice: 20, maxPrice: 28 },
@@ -30,17 +30,17 @@ const fetchRealMandiPrices = async (cropName) => {
                     }
                 });
             }
-            console.log(`✅ Simulated daily market updates for ${cropName}`);
+            console.log(` Simulated daily market updates for ${cropName}`);
             return;
         }
 
-        console.log(`📡 Fetching real-time Agmarknet prices from Data.gov.in for: ${cropName}...`);
+        console.log(`� Fetching real-time Agmarknet prices from Data.gov.in for: ${cropName}...`);
         const url = `${BASE_URL}/${RESOURCE_ID}?api-key=${DATA_GOV_API_KEY}&format=json&filters[commodity]=${cropName}&limit=10`;
         const response = await axios.get(url);
         
         const records = response.data.records;
         if (!records || records.length === 0) {
-            console.log(`ℹ️ No government records found for commodity: ${cropName}`);
+            console.log(` No government records found for commodity: ${cropName}`);
             return;
         }
 
@@ -75,7 +75,7 @@ const fetchRealMandiPrices = async (cropName) => {
             });
         }
 
-        console.log(`✅ Successfully stored ${formattedPrices.length} official Agmarknet rows for ${cropName}`);
+        console.log(` Successfully stored ${formattedPrices.length} official Agmarknet rows for ${cropName}`);
     } catch (error) {
         console.error(`❌ Error fetching Data.gov.in mandi prices for ${cropName}:`, error.message);
     }

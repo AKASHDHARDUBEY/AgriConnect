@@ -43,7 +43,7 @@ router.get('/fair-price/:cropName', async (req, res) => {
                 max: fairRange.max.toFixed(2)
             },
             status: isAnomaly ? "ANOMALY_DETECTED" : "STABLE",
-            alert: isAnomaly ? "⚠️ Abnormal price drop detected in nearby markets!" : "Market is stable."
+            alert: isAnomaly ? " Abnormal price drop detected in nearby markets!" : "Market is stable."
         });
 
     } catch (error) {
@@ -107,6 +107,18 @@ router.get('/update-prices', async (req, res) => {
     await fetchRealMandiPrices('Potato');
     
     res.json({ message: "Government data sync triggered!" });
+});
+
+router.get('/daily-prices', async (req, res) => {
+    try {
+        const latestPrices = await prisma.marketPrice.findMany({
+            orderBy: { date: 'desc' },
+            take: 30
+        });
+        res.json(latestPrices);
+    } catch (error) {
+        res.status(500).json({ error: "Could not retrieve daily market prices" });
+    }
 });
 
 module.exports = router;

@@ -1,0 +1,139 @@
+/* Main Navbar */
+.navbar {
+    background: var(--nav-gradient);
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    color: var(--text);
+    box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+/* Container */
+.navbar-container {
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.logo-icon {
+    font-size: 1.7rem;
+}
+
+.logo-text {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+/* Desktop Nav Links */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-weight: 500;
+    color: white;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+/* Sell Button */
+.sell-btn {
+    background: #ffc107;
+    color: #2d2d2d !important;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sell-btn:hover {
+    background: #ffb300;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #ffffff33;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    color: white;
+    transition: 0.25s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile Menu Icon */
+.mobile-menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Mobile Dropdown */
+.mobile-dropdown {
+    background: var(--sidebar-bg);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--text);
+}
+
+.mobile-link {
+    text-decoration: none;
+    font-size: 1.08rem;
+    color: var(--text);
+}
+
+.mobile-sell-btn {
+    background: #ffc107;
+    padding: 0.7rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+/* Mobile Theme Button */
+.mobile-theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.7rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+}

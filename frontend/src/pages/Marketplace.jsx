@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../components/Navbar';
 
 const Marketplace = () => {
     const [products, setProducts] = useState([]);
@@ -36,9 +35,7 @@ const Marketplace = () => {
     }
 
     return (
-        <>
-            <Navbar />
-            <div className="p-8 bg-gray-50 min-h-screen">
+        <div className="p-8 bg-gray-50 min-h-screen">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
                         <h1 className="text-3xl font-extrabold text-green-800 tracking-tight">Browse Fresh Inventory</h1>
@@ -51,7 +48,7 @@ const Marketplace = () => {
                             className="p-3 pl-10 border border-gray-300 rounded-full w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent transition text-sm"
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <span className="absolute left-3.5 top-3.5 text-gray-400 text-sm">🔍</span>
+                        <span className="absolute left-3.5 top-3.5 text-gray-400 text-sm">�</span>
                     </div>
                 </div>
 
@@ -60,15 +57,13 @@ const Marketplace = () => {
                         <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
-                
                 {filteredProducts.length === 0 && (
                     <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
-                        <span className="text-4xl mb-2">🌾</span>
+                        <span className="text-4xl mb-2"></span>
                         <p className="text-lg font-medium">No crops found matching your search.</p>
                     </div>
                 )}
             </div>
-        </>
     );
 };
 
@@ -102,7 +97,7 @@ const ProductCard = ({ product }) => {
 
     return (
         <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between overflow-hidden group">
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden flex-shrink-0">
                 <img 
                     src={product.imageUrl || "https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=400"} 
                     alt={product.cropName} 
@@ -110,12 +105,12 @@ const ProductCard = ({ product }) => {
                 />
                 {!loadingFair && isFair && (
                     <div className="absolute top-3 left-3 bg-green-600 text-white text-[11px] font-extrabold px-3 py-1.5 rounded-full shadow-md tracking-wider uppercase">
-                        ✅ Verified Fair Price
+                         Verified Fair Price
                     </div>
                 )}
                 {!loadingFair && isFair === false && (
                     <div className="absolute top-3 left-3 bg-amber-500 text-white text-[11px] font-extrabold px-3 py-1.5 rounded-full shadow-md tracking-wider uppercase">
-                        ⚠️ Above Market Rate
+                         Above Market Rate
                     </div>
                 )}
             </div>
@@ -131,14 +126,14 @@ const ProductCard = ({ product }) => {
                     
                     <div className="text-sm text-gray-600 space-y-1 mb-5 border-t border-gray-100 pt-3">
                         <p className="flex items-center gap-2 text-gray-700">
-                            <span className="text-xs">👤</span> <span className="font-medium">{product.farmer?.name || "Ramesh Kumar"}</span>
+                            <span className="text-xs"></span> <span className="font-medium">{product.farmer?.name || "Ramesh Kumar"}</span>
                         </p>
                         <p className="flex items-center gap-2 text-gray-550">
-                            <span className="text-xs">📍</span> <span>{product.farmer?.location || "Nashik, Maharashtra"}</span>
+                            <span className="text-xs">�</span> <span>{product.farmer?.location || "Nashik, Maharashtra"}</span>
                         </p>
                         {product.distanceKm !== undefined && (
                             <p className="flex items-center gap-2 text-emerald-700 text-xs font-bold mt-1">
-                                <span className="text-xs">🚚</span> <span>{product.distanceKm} km away</span>
+                                <span className="text-xs">�</span> <span>{product.distanceKm} km away</span>
                             </p>
                         )}
                     </div>
@@ -149,7 +144,7 @@ const ProductCard = ({ product }) => {
                         href={`tel:${product.farmer?.phone || '+919876543210'}`} 
                         className="flex-1 bg-gray-900 text-white text-center py-2.5 rounded-xl text-xs font-bold hover:bg-black transition duration-200 shadow-sm"
                     >
-                        📞 Call
+                        � Call
                     </a>
                     <a 
                         href={`https://wa.me/${product.farmer?.phone?.replace('+', '') || '919876543210'}`} 
@@ -157,7 +152,7 @@ const ProductCard = ({ product }) => {
                         rel="noreferrer"
                         className="flex-1 bg-emerald-600 text-white text-center py-2.5 rounded-xl text-xs font-bold hover:bg-emerald-700 transition duration-200 shadow-sm"
                     >
-                        💬 WhatsApp
+                        � WhatsApp
                     </a>
                 </div>
             </div>
